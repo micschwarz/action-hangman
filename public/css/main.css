@@ -1,0 +1,18 @@
+@import "buttons.css";
+
+:root {
+    --color-background       : #1a1c20;
+    --color-primary          : #f0a500;
+    --color-primary-darken   : #cf7500;
+    --color-secondary        : #d44004;
+    --color-secondary-darken : #ef2505;
+    --color-text             : #f4f4f4;
+}
+
+body {
+    background  : var(--color-background);
+    color       : var(--color-text);
+    font-family : sans-serif;
+    margin      : 0;
+    padding     : 0;
+}

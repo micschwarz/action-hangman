@@ -1,0 +1,56 @@
+.btn {
+    background    : var(--color-primary);
+    color         : var(--color-text);
+    border        : none;
+    border-radius : 2px;
+    box-shadow    : 0 .3rem var(--color-primary-darken);
+    outline       : none;
+    font-weight   : bold;
+
+    height        : 3rem;
+
+    cursor        : pointer;
+
+    transition    : all .01s ease-out;
+}
+
+.btn.btn--square {
+    width        : 3rem;
+}
+
+.btn.btn--secondary {
+    background    : var(--color-secondary);
+    box-shadow    : 0 .3rem var(--color-secondary-darken);
+}
+
+.btn:hover {
+    box-shadow : 0 .24rem var(--color-primary-darken);
+    transform  : translateY(.06rem);
+    transition : all .05s ease-out;
+}
+
+.btn.btn--secondary:hover {
+    box-shadow : 0 .24rem var(--color-secondary-darken);
+}
+
+.btn:active {
+    box-shadow : 0 .1rem var(--color-primary-darken);
+    transform  : translateY(.2rem);
+}
+
+.btn.btn--secondary:active {
+    box-shadow : 0 .1rem var(--color-secondary-darken);
+}
+
+.btn:disabled {
+    background : var(--color-primary-darken);
+    box-shadow : 0 0 var(--color-primary-darken);
+    transform  : translateY(.3rem);
+
+    cursor     : not-allowed;
+}
+
+.btn.btn--secondary:disabled {
+    background : var(--color-secondary-darken);
+    box-shadow : 0 0 var(--color-secondary-darken);
+}
