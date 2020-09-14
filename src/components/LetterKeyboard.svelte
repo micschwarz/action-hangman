@@ -1,5 +1,6 @@
 <script>
     import { getContext } from 'svelte';
+    import { flip } from 'svelte/animate';
 
     /**
      * @type {Game}
@@ -10,8 +11,9 @@
 </script>
 
 <div class="btns">
-    {#each $lettersStore as letter}
+    {#each $lettersStore as letter (letter.getValue())}
         <button class="btn btn--square"
+                animate:flip={{duration: 300}}
                 on:click={() => lettersStore.use(letter.getValue())}
                 disabled={letter.isUsed()}>
             {letter.getLabel()}
