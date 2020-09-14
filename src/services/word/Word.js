@@ -4,7 +4,7 @@ export class Word {
      *
      * @returns {Promise<string>}
      */
-    fetch = () => {
+    fetch() {
         return new Promise((resolve, reject) => {
             reject('No word source.')
         });

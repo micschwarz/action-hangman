@@ -6,7 +6,7 @@ export class LocalWord extends Word {
         this._data = 'https://raw.githubusercontent.com/micschwarz-data/German-English-JSON-Dictionary/master/english_german.json';
     }
 
-    fetch = () => {
+    fetch() {
         return new Promise((resolve, reject) => {
             window.fetch(this._data)
                 .then(response => response.json())

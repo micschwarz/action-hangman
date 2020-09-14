@@ -14,23 +14,23 @@ export class Letter {
         this._isUsedHidden = false;
     }
 
-    getLabel = () => {
+    getLabel() {
         return this._isLabelHidden ? '?' : this._label;
     }
 
-    setLabelViewable = (isHidden) => {
+    setLabelViewable(isHidden) {
         this._isLabelHidden = isHidden;
     }
 
-    getValue = () => {
+    getValue() {
         return this._value;
     }
 
-    setUsed = (isUsed) => {
+    setUsed(isUsed) {
         this._isUsed = isUsed;
     }
 
-    isUsed = () => {
+    isUsed() {
         return this._isUsedHidden ? false : this._isUsed;
     }
 
@@ -38,7 +38,7 @@ export class Letter {
         this._isUsedHidden = isHidden;
     }
 
-    equals = (value) => {
+    equals(value) {
         return this.getValue() === value;
     }
 
@@ -46,7 +46,7 @@ export class Letter {
      *
      * @param {Letter} other
      */
-    compare = (other) => {
+    compare(other) {
         const diff = this.getValue().charCodeAt(0) - other.getValue().charCodeAt(0);
         return Math.min(Math.max(diff, -1), 1);
     }

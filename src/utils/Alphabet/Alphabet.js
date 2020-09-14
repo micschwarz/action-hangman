@@ -8,7 +8,7 @@ class Alphabet {
      * @param {string[]} [used=[]] - Letters already used.
      * @returns {Letter[]}
      */
-    static generate = (used = []) => {
+    static generate(used = []) {
         const alphabet = [];
 
         const asciiCodeA = 'a'.charCodeAt(0);

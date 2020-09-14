@@ -14,7 +14,7 @@
     {#each $lettersStore as letter (letter.getValue())}
         <button class="btn btn--square"
                 animate:flip={{duration: 300}}
-                on:click={() => lettersStore.use(letter.getValue())}
+                on:click={() => game.useLetter(letter.getValue())}
                 disabled={letter.isUsed()}>
             {letter.getLabel()}
         </button>

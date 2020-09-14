@@ -1,5 +1,6 @@
 import { lettersStore }                     from '../stores/letters';
 import { wordStoreMaster, wordStorePlayer } from '../stores/word';
+import { roundsStore }                      from '../stores/rounds';
 
 export class Game {
     /**
@@ -8,6 +9,7 @@ export class Game {
      */
     constructor(wordService) {
         lettersStore.reset();
+        roundsStore.reset();
 
         wordService.fetch()
             .catch(err => {
@@ -19,13 +21,23 @@ export class Game {
 
         this._lettersStore = lettersStore;
         this._wordStore = wordStorePlayer;
+        this._roundsStore = roundsStore;
     }
 
-    getLettersStore = () => {
+    getLettersStore() {
         return this._lettersStore;
     };
 
-    getWordStore = () => {
+    getWordStore() {
         return this._wordStore;
-    }
+    };
+
+    getRoundsStore() {
+        return this._roundsStore;
+    };
+
+    useLetter(char) {
+        this.getLettersStore().use(char);
+        this.getRoundsStore().decrement();
+    };
 }

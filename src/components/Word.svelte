@@ -22,7 +22,6 @@
         display         : flex;
         align-items     : center;
         justify-content : center;
-        gap             : 1rem;
         padding         : 1rem;
     }
 
@@ -39,5 +38,11 @@
 
         font-size       : 1.2em;
         font-weight     : bold;
+
+        margin-right    : 1rem;
+    }
+
+    .word .char:last-child {
+        margin-right : 0;
     }
 </style>
