@@ -11,16 +11,21 @@
 
     export let debug = getContext('debug');
 
-    const game = Game.start();
+
+    let game = Game.start();
     setContext('game', game)
     const stateStore = game.getStateStore();
+
+    const restartGame = () => {
+        game = Game.start();
+    }
 </script>
 
 
 {#if $stateStore === STATE_WIN}
-    <WinPopup/>
+    <WinPopup on:restart={restartGame}/>
 {:else if $stateStore === STATE_LOSE}
-    <LosePopup/>
+    <LosePopup on:restart={restartGame}/>
 {/if}
 
 <section>
