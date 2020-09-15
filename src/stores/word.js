@@ -21,7 +21,8 @@ const createPlayerWordStore = () => {
                 }, {});
 
             return word.map(char => letters[char].isUsed() ? char : '_').join('');
-        });
+        }
+    );
 }
 
 export const wordStorePlayer = createPlayerWordStore();

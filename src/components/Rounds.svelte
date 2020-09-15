@@ -22,7 +22,7 @@
         align-items    : stretch;
 
         padding        : 1rem;
-        width          : 2rem;
+        width          : 4rem;
 
         font-size      : 1.4em;
         text-align     : center;

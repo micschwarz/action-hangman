@@ -4,13 +4,24 @@
     import { getContext, setContext } from 'svelte';
     import { Game }                   from './utils/Game';
     import Word                       from './components/Word.svelte';
-    import { LocalWord }              from './services/word/LocalWord';
     import Rounds                     from './components/Rounds.svelte';
+    import { STATE_LOSE, STATE_WIN }  from './stores/state';
+    import WinPopup                   from './components/popups/WinPopup.svelte';
+    import LosePopup                  from './components/popups/LosePopup.svelte';
 
     export let debug = getContext('debug');
 
-    setContext('game', new Game(new LocalWord()));
+    const game = Game.start();
+    setContext('game', game)
+    const stateStore = game.getStateStore();
 </script>
+
+
+{#if $stateStore === STATE_WIN}
+    <WinPopup/>
+{:else if $stateStore === STATE_LOSE}
+    <LosePopup/>
+{/if}
 
 <section>
     <header>

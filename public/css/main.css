@@ -7,6 +7,12 @@
     --color-secondary        : #d44004;
     --color-secondary-darken : #ef2505;
     --color-text             : #f4f4f4;
+
+    --z-index-popup          : 100;
+}
+
+* {
+    box-sizing : border-box;
 }
 
 body {
