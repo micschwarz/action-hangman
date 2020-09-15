@@ -1,6 +1,6 @@
 <script>
     import Popup                                             from '../helper/Popup.svelte';
-    import { createEventDispatcher, getContext, setContext } from 'svelte';
+    import { createEventDispatcher, getContext } from 'svelte';
 
     const game = getContext('game');
     const roundsStore = game.getRoundsStore();
