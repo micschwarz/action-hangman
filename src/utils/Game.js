@@ -62,10 +62,11 @@ export class Game {
     };
 
     useLetter(char) {
-        this.getLettersStore().use(char);
-        this.getRoundsStore().decrement();
-        this.getActionsStore().update();
-        this._runRandomAction(0.1);
+        if (this.getLettersStore().use(char)) {
+            this.getRoundsStore().decrement();
+            this.getActionsStore().update();
+            this._runRandomAction(0.1);
+        }
     };
 
     _runRandomAction(probability) {
