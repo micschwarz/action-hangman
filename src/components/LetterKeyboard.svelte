@@ -1,6 +1,7 @@
 <script>
     import { getContext } from 'svelte';
-    import { flip } from 'svelte/animate';
+    import { flip }       from 'svelte/animate';
+    import Alphabet       from '../utils/Alphabet/Alphabet';
 
     /**
      * @type {Game}
@@ -8,8 +9,17 @@
     const game = getContext('game');
 
     const lettersStore = game.getLettersStore()
+
+    const keyboardPress = (event) => {
+        const char = event.key;
+        if (Alphabet.validate(char)) {
+            event.preventDefault();
+            game.useLetter(char);
+        }
+    }
 </script>
 
+<svelte:window on:keyup={keyboardPress}/>
 <div class="btns">
     {#each $lettersStore as letter (letter.getValue())}
         <button class="btn btn--square"
