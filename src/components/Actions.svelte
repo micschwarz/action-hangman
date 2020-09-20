@@ -21,7 +21,6 @@
         display               : grid;
         grid-gap              : 1rem;
         grid-template-columns : repeat(2, 3rem);
-        justify-content       : center;
         padding               : 1rem;
     }
 

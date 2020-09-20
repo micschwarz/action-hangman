@@ -36,7 +36,7 @@
 
 <section>
     <header>
-        <div class="title">
+        <div class="word">
             <Word/>
         </div>
 
@@ -52,43 +52,51 @@
             <LetterKeyboard/>
             <Actions/>
         {/if}
+        {#if debug}
+            <Debug/>
+        {/if}
     </main>
 
-    {#if debug}
-        <Debug/>
-    {/if}
 </section>
 
 <style>
     section {
-        padding   : 1rem;
-        max-width : 40rem;
-        margin    : 0 auto;
+        display               : grid;
+        grid-template-rows    : auto auto;
+        grid-template-columns : max-content;
+        grid-template-areas   : "header" "main";
+        justify-content       : center;
+
+        padding               : 1rem;
+        max-width             : 40rem;
+        margin                : 0 auto;
+    }
+
+    main {
+        grid-area : main;
     }
 
     header {
+        grid-area             : header;
+
         display               : grid;
         grid-template-rows    : auto;
         grid-template-columns : auto 4rem;
-        grid-template-areas   : "title rounds";
+        grid-template-areas   : "word rounds";
     }
 
     header .rounds {
         grid-area : rounds;
     }
 
-    header .title {
-        grid-area       : title;
+    header .word {
+        grid-area       : word;
 
         display         : flex;
-        justify-content : center;
         align-items     : center;
+        justify-content : center;
 
         margin          : 0;
         text-align      : center;
-    }
-
-    header .nav {
-        grid-area : nav;
     }
 </style>
