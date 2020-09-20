@@ -8,7 +8,6 @@
 
 }
 
-.loader:after,
 .loader:before {
     content       : ' ';
     width         : var(--loader-size);
@@ -18,13 +17,8 @@
     left          : 0;
     border        : var(--loader-thickness) solid transparent;
     border-top    : var(--loader-thickness) solid var(--color-primary);
-    border-bottom : var(--loader-thickness) solid var(--color-primary);
     border-radius : 50%;
-    animation     : loader-spin 1.2s ease-in-out infinite;
-}
-
-.loader:after {
-    animation-delay : .06s;
+    animation     : loader-spin .7s ease-in-out infinite;
 }
 
 @keyframes loader-spin {
