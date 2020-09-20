@@ -13,7 +13,7 @@ export class LocalWord extends Word {
                 .then(dict => Object.values(dict))
                 .then(list => list.filter(word => !word.includes(' ')))
                 .then(list => list.filter(word => word.charAt(0).toUpperCase() === word.charAt(0)))
-                .then(list => list.filter(word => word.length < 7))
+                .then(list => list.filter(word => word.length < 6))
                 .then(list => list.filter(word => /^[a-z]*$/gi.test(word)))
                 .then(list => list[~~(list.length * Math.random())])
                 .then(word => resolve(word))

@@ -1,0 +1,64 @@
+.btn {
+    --btn-background : var(--color-primary);
+    --btn-shade      : var(--color-primary-darken);
+    --btn-text       : var(--color-text);
+
+    background       : var(--btn-background);
+    color            : var(--btn-text);
+    border           : none;
+    border-radius    : 2px;
+    box-shadow       : 0 .3rem var(--btn-shade);
+    outline          : none;
+    font-weight      : bold;
+
+    height           : 3rem;
+    padding          : .75rem;
+
+    cursor           : pointer;
+
+    transition       : all .01s ease-out;
+}
+
+.btn:hover {
+    box-shadow : 0 .24rem var(--btn-shade);
+    transform  : translateY(.06rem);
+    transition : all .05s ease-out;
+}
+
+
+.btn:active {
+    box-shadow : 0 .1rem var(--btn-shade);
+    transform  : translateY(.2rem);
+}
+
+.btn.btn--inactive,
+.btn:disabled {
+    background : var(--btn-shade);
+    box-shadow : 0 0 var(--btn-shade);
+    transform  : translateY(.3rem);
+
+    cursor     : not-allowed;
+}
+
+/* MODIFIER */
+.btn.btn--square {
+    width : 3rem;
+}
+
+.btn.btn--no-click,
+.btn.btn--no-click:hover,
+.btn.btn--no-click:active {
+    box-shadow : 0 .15rem var(--btn-shade);
+    transform  : translateY(.15rem);
+}
+
+.btn.btn--no-click {
+    cursor : default;
+}
+
+/* COLORS */
+.btn--red {
+    --btn-background : var(--red);
+    --btn-shade      : var(--red-darken);
+}
+

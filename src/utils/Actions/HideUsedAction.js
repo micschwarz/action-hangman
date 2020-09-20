@@ -10,4 +10,8 @@ export class HideUsedAction extends Action {
     _reset() {
         lettersStore.hideUsed(false);
     }
+
+    getIcon() {
+        return 'question-circle';
+    }
 }

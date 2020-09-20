@@ -10,4 +10,8 @@ export class HideLettersAction extends Action {
     _reset() {
         lettersStore.hideLabel(false);
     }
+
+    getIcon() {
+        return 'shuffle';
+    }
 }

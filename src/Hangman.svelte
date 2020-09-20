@@ -11,6 +11,7 @@
     import LosePopup                  from './components/popups/LosePopup.svelte';
     import Popup                      from './components/helper/Popup.svelte';
     import LoaderPopup                from './components/popups/LoaderPopup.svelte';
+    import Actions                    from './components/Actions.svelte';
 
     export let debug = getContext('debug');
 
@@ -36,7 +37,7 @@
 <section>
     <header>
         <div class="title">
-            <h1>Hangman</h1>
+            <Word/>
         </div>
 
         <div class="rounds">
@@ -44,16 +45,12 @@
                 <Rounds/>
             {/if}
         </div>
-
-        <div class="nav">
-
-        </div>
     </header>
 
     <main>
         {#if $stateStore !== STATE_LOADING}
-            <Word/>
             <LetterKeyboard/>
+            <Actions/>
         {/if}
     </main>
 
@@ -72,8 +69,8 @@
     header {
         display               : grid;
         grid-template-rows    : auto;
-        grid-template-columns : 4rem auto 4rem;
-        grid-template-areas   : "nav title rounds";
+        grid-template-columns : auto 4rem;
+        grid-template-areas   : "title rounds";
     }
 
     header .rounds {

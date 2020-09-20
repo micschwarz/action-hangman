@@ -62,4 +62,8 @@ export class Action {
             this._roundsLeft--;
         }
     }
+
+    getIcon() {
+        return '';
+    }
 }
