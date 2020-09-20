@@ -1,9 +1,10 @@
-import { HideLettersAction } from './HideLettersAction';
-import { HideUsedAction }    from './HideUsedAction';
+import { HideLettersAction }  from './HideLettersAction';
+import { HideUsedAction }     from './HideUsedAction';
+import { RandomLetterAction } from './RandomLetterAction';
 
 export class Actions {
     static get() {
-        return [new HideLettersAction(), new HideUsedAction()];
+        return [new HideLettersAction(), new HideUsedAction(), new RandomLetterAction()];
     }
 
     /**

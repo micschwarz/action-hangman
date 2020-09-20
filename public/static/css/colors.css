@@ -3,21 +3,11 @@
     --yellow               : #f0a500;
     --yellow-darken        : #cf7500;
 
-    --green                : #53dd6c;
-    --green-darken         : #63a088;
-
-    --blue                 : #03b5aa;
-    --blue-darken          : #037971;
-
-    --steel                : #e8ebf7;
-    --steel-darken         : #acbed8;
-
-    --mint                 : #f1f7ed;
-    --mint-darken          : #b2d39c;
+    --green                : #35a449;
+    --green-darken         : #20662c;
 
     --red                  : #da344d;
     --red-darken           : #9b1c2f;
-
 
     --color-background     : #1a1c20;
     --color-primary        : var(--yellow);

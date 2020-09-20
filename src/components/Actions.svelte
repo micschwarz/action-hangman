@@ -10,7 +10,7 @@
 
 <div class="btns">
     {#each $actionsStore as action (action)}
-        <div class="btn btn--no-click btn--red" class:btn--inactive={action.didRun()}>
+        <div class={`btn btn--no-click btn--${action.getColor()}`} class:btn--inactive={action.didRun()}>
             <i class={`uil uil-${action.getIcon()}`}></i>
         </div>
     {/each}
@@ -20,7 +20,7 @@
     .btns {
         display               : grid;
         grid-gap              : 1rem;
-        grid-template-columns : repeat(2, 3rem);
+        grid-template-columns : repeat(3, 3rem);
         padding               : 1rem;
     }
 

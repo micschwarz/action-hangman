@@ -62,3 +62,8 @@
     --btn-shade      : var(--red-darken);
 }
 
+.btn--green {
+    --btn-background : var(--green);
+    --btn-shade      : var(--green-darken);
+}
+

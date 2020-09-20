@@ -66,4 +66,8 @@ export class Action {
     getIcon() {
         return '';
     }
+
+    getColor() {
+        return 'red'
+    }
 }
