@@ -1,13 +1,8 @@
 @import "buttons.css";
+@import "colors.css";
+@import "loader.css";
 
 :root {
-    --color-background       : #1a1c20;
-    --color-primary          : #f0a500;
-    --color-primary-darken   : #cf7500;
-    --color-secondary        : #d44004;
-    --color-secondary-darken : #ef2505;
-    --color-text             : #f4f4f4;
-
     --z-index-popup          : 100;
 }
 
@@ -21,4 +16,8 @@ body {
     font-family : sans-serif;
     margin      : 0;
     padding     : 0;
+}
+
+body.no-scroll {
+    overflow: hidden;
 }

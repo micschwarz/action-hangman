@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 const createRoundsStore = () => {
     const MAX_ROUNDS = 11;
-    const { subscribe, update, set } = writable(0);
+    const { subscribe, update, set } = writable(undefined);
 
     return {
         subscribe,

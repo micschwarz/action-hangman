@@ -17,7 +17,7 @@
         <div class="message">
             Du hast das Spiel in {$roundsStore} Runden beendet.
         </div>
-        <button class="btn btn--secondary" on:click={restart}>Neues Spiel</button>
+        <button class="btn" on:click={restart}>Neues Spiel</button>
     </div>
 </Popup>
 

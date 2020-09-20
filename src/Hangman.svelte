@@ -6,8 +6,11 @@
     import Word                       from './components/Word.svelte';
     import Rounds                     from './components/Rounds.svelte';
     import { STATE_LOSE, STATE_WIN }  from './stores/state';
+    import { STATE_LOADING }          from './stores/state';
     import WinPopup                   from './components/popups/WinPopup.svelte';
     import LosePopup                  from './components/popups/LosePopup.svelte';
+    import Popup                      from './components/helper/Popup.svelte';
+    import LoaderPopup                from './components/popups/LoaderPopup.svelte';
 
     export let debug = getContext('debug');
 
@@ -21,12 +24,14 @@
     }
 </script>
 
-
 {#if $stateStore === STATE_WIN}
     <WinPopup on:restart={restartGame}/>
 {:else if $stateStore === STATE_LOSE}
     <LosePopup on:restart={restartGame}/>
+{:else if $stateStore === STATE_LOADING}
+    <LoaderPopup/>
 {/if}
+
 
 <section>
     <header>
@@ -35,7 +40,9 @@
         </div>
 
         <div class="rounds">
-            <Rounds/>
+            {#if $stateStore !== STATE_LOADING}
+                <Rounds/>
+            {/if}
         </div>
 
         <div class="nav">
@@ -44,10 +51,11 @@
     </header>
 
     <main>
-        <Word/>
-        <LetterKeyboard/>
+        {#if $stateStore !== STATE_LOADING}
+            <Word/>
+            <LetterKeyboard/>
+        {/if}
     </main>
-
 
     {#if debug}
         <Debug/>

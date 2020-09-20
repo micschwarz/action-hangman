@@ -8,6 +8,7 @@
     font-weight   : bold;
 
     height        : 3rem;
+    padding       : .75rem;
 
     cursor        : pointer;
 
@@ -15,12 +16,12 @@
 }
 
 .btn.btn--square {
-    width        : 3rem;
+    width : 3rem;
 }
 
 .btn.btn--secondary {
-    background    : var(--color-secondary);
-    box-shadow    : 0 .3rem var(--color-secondary-darken);
+    background : var(--color-secondary);
+    box-shadow : 0 .3rem var(--color-secondary-darken);
 }
 
 .btn:hover {

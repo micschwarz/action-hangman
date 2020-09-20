@@ -18,7 +18,7 @@
         <div class="message">
             Du hast das Wort {$wordsStoreMaster} nicht {roundsStore.getMax()} Runden erraten.
         </div>
-        <button class="btn btn--secondary" on:click={restart}>Neues Spiel</button>
+        <button class="btn" on:click={restart}>Neues Spiel</button>
     </div>
 </Popup>
 

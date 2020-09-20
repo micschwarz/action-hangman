@@ -1,0 +1,38 @@
+.loader {
+    --loader-size      : 2.5rem;
+    --loader-thickness : .4rem;
+
+    position           : relative;
+    width              : var(--loader-size);
+    height             : var(--loader-size);
+
+}
+
+.loader:after,
+.loader:before {
+    content       : ' ';
+    width         : var(--loader-size);
+    height        : var(--loader-size);
+    position      : absolute;
+    top           : 0;
+    left          : 0;
+    border        : var(--loader-thickness) solid transparent;
+    border-top    : var(--loader-thickness) solid var(--color-primary);
+    border-bottom : var(--loader-thickness) solid var(--color-primary);
+    border-radius : 50%;
+    animation     : loader-spin 1.2s ease-in-out infinite;
+}
+
+.loader:after {
+    animation-delay : .06s;
+}
+
+@keyframes loader-spin {
+    0% {
+        transform : rotate(0deg);
+    }
+
+    100% {
+        transform : rotate(359deg);
+    }
+}

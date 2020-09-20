@@ -1,0 +1,19 @@
+:root {
+
+    --yellow                 : #f0a500;
+    --yellow-darken          : #cf7500;
+
+    --green                  : #53dd6c;
+    --green-darken           : #63a088;
+
+    --blue                   : #03b5aa;
+    --blue-darken            : #037971;
+
+
+    --color-background       : #1a1c20;
+    --color-primary          : var(--yellow);
+    --color-primary-darken   : var(--yellow-darken);
+    --color-secondary        : #ef2505;
+    --color-secondary-darken : #d44004;
+    --color-text             : #f4f4f4;
+}
