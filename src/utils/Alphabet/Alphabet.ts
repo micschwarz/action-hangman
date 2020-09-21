@@ -1,18 +1,18 @@
-import { Letter } from './Letter';
+import { Letter } from "./Letter";
 
-export default Alphabet
-
-class Alphabet {
+export default class Alphabet {
     /**
-     * Generate alphabet
+     * Generate alphabet.
+     *
      * @param {string[]} [used=[]] - Letters already used.
      * @returns {Letter[]}
      */
-    static generate(used = []) {
+    static generate(used: string[] = []): string[] {
         const alphabet = [];
 
         const asciiCodeA = 'a'.charCodeAt(0);
         const asciiCodeZ = 'z'.charCodeAt(0);
+
         for (let code = asciiCodeA; code <= asciiCodeZ; code++) {
             const letter = String.fromCharCode(code);
             if (!used.includes(letter)) {
@@ -23,7 +23,13 @@ class Alphabet {
         return alphabet;
     }
 
-    static validate(char) {
+    /**
+     * Checks if character is in default alphabet.
+     *
+     * @param {string} char
+     * @returns {boolean}
+     */
+    static validate(char: string): boolean {
         const asciiCodeA = 'a'.charCodeAt(0);
         const asciiCodeZ = 'z'.charCodeAt(0);
         const charCode = char.charCodeAt(0);

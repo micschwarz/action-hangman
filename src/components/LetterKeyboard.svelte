@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { getContext } from 'svelte';
     import { flip }       from 'svelte/animate';
     import Alphabet       from '../utils/Alphabet/Alphabet';

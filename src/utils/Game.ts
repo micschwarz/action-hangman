@@ -1,40 +1,45 @@
-import { lettersStore }                     from '../stores/letters';
+import { lettersStore } from '../stores/letters';
 import { wordStoreMaster, wordStorePlayer } from '../stores/word';
-import { roundsStore }                      from '../stores/rounds';
-import { stateStore }                       from '../stores/state';
-import { LocalWord }                        from '../services/word/LocalWord';
-import { actionsStore }                     from '../stores/actions';
-import { get }                              from 'svelte/store';
+import { roundsStore } from '../stores/rounds';
+import { stateStore } from '../stores/state';
+import { LocalWord } from '../services/word/LocalWord';
+import { actionsStore } from '../stores/actions';
+import { get } from 'svelte/store';
+import type { Word } from "../services/word/Word";
 
 export class Game {
 
-    static start() {
+    private readonly _lettersStore = lettersStore;
+    private readonly _wordStore = wordStorePlayer;
+    private readonly _wordStoreMaster = wordStoreMaster;
+    private readonly _roundsStore = roundsStore;
+    private readonly _stateStore = stateStore;
+    private readonly _actionsStore = actionsStore;
+
+    /**
+     * Creates game.
+     */
+    static start(): Game {
         return new Game(new LocalWord());
     }
 
     /**
+     * Creates game.
      *
      * @param {Word} wordService
      */
-    constructor(wordService) {
+    private constructor(wordService: Word) {
         lettersStore.reset();
         roundsStore.reset();
         actionsStore.reset();
 
         wordService.fetch()
-            .catch(err => {
-                console.log(err);
-            })
             .then(word => {
                 wordStoreMaster.set(word)
+            })
+            .catch(err => {
+                console.log(err);
             });
-
-        this._lettersStore = lettersStore;
-        this._wordStore = wordStorePlayer;
-        this._wordStoreMaster = wordStoreMaster;
-        this._roundsStore = roundsStore;
-        this._stateStore = stateStore;
-        this._actionsStore = actionsStore;
     }
 
     getLettersStore() {
@@ -61,15 +66,26 @@ export class Game {
         return this._actionsStore;
     };
 
-    useLetter(char) {
+    /**
+     * Use letter.
+     *
+     * @param char
+     */
+    useLetter(char: string) {
         if (this.getLettersStore().use(char)) {
             this.getRoundsStore().decrement();
             this.getActionsStore().update();
-            this._runRandomAction(0.1);
+            this.runRandomAction(0.1);
         }
     };
 
-    _runRandomAction(probability) {
+    /**
+     * Runs random action.
+     *
+     * @param probability
+     * @private
+     */
+    private runRandomAction(probability: number) {
         const actionsStore = this.getActionsStore();
         const actions = get(actionsStore).filter(action => action.canRun() && !action.didRun());
 

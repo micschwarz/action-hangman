@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Popup                                             from '../helper/Popup.svelte';
     import { createEventDispatcher, getContext } from 'svelte';
 

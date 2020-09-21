@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { lettersStore }    from '../../stores/letters';
     import { wordStoreMaster } from '../../stores/word';
 

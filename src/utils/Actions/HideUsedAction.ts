@@ -1,17 +1,17 @@
-import { Action }       from './Action';
+import { Action } from './Action';
 import { lettersStore } from '../../stores/letters';
 
 export class HideUsedAction extends Action {
-    _run() {
+    getIcon(): string {
+        return 'question-circle';
+    }
+
+    protected _run(): number {
         lettersStore.hideUsed(true);
         return 1;
     }
 
-    _reset() {
+    protected _reset() {
         lettersStore.hideUsed(false);
-    }
-
-    getIcon() {
-        return 'question-circle';
     }
 }

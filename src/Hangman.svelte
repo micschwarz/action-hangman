@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import LetterKeyboard             from './components/LetterKeyboard.svelte';
     import Debug                      from './components/helper/Debug.svelte';
     import { getContext, setContext } from 'svelte';

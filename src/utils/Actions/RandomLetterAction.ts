@@ -1,9 +1,17 @@
-import { Action }       from './Action';
+import { Action } from './Action';
 import { lettersStore } from '../../stores/letters';
-import { get }          from 'svelte/store';
+import { get } from 'svelte/store';
 
 export class RandomLetterAction extends Action {
-    _run() {
+    getIcon(): string {
+        return 'plus-circle';
+    }
+
+    getColor(): string {
+        return 'green'
+    }
+
+    protected _run(): number {
         const unusedChars = get(lettersStore)
             .filter(letter => !letter.isUsed());
 
@@ -13,15 +21,7 @@ export class RandomLetterAction extends Action {
         return 0;
     }
 
-    _reset() {
-
-    }
-
-    getIcon() {
-        return 'plus-circle';
-    }
-
-    getColor() {
-        return 'green'
+    protected _reset() {
+        // Do nothing
     }
 }

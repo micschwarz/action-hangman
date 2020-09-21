@@ -1,9 +1,10 @@
-import { HideLettersAction }  from './HideLettersAction';
-import { HideUsedAction }     from './HideUsedAction';
+import { HideLettersAction } from './HideLettersAction';
+import { HideUsedAction } from './HideUsedAction';
 import { RandomLetterAction } from './RandomLetterAction';
+import type { Action } from "./Action";
 
 export class Actions {
-    static get() {
+    static get(): Action[] {
         return [new HideLettersAction(), new HideUsedAction(), new RandomLetterAction()];
     }
 
@@ -12,7 +13,7 @@ export class Actions {
      *
      * @param {Action[]} actions
      */
-    static updateAll(actions) {
+    static updateAll(actions: Action[]): Action[] {
         actions.forEach((action) => {
             action.update();
         });
