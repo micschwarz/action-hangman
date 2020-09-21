@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import Hangman          from './Hangman.svelte';
     import { setContext }   from 'svelte';
 
