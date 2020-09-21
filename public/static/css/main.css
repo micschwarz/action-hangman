@@ -1,6 +1,6 @@
-@import "buttons.css";
-@import "colors.css";
-@import "loader.css";
+@import "./buttons.css";
+@import "./colors.css";
+@import "./loader.css";
 
 :root {
     --z-index-popup          : 100;
