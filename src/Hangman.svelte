@@ -23,6 +23,14 @@
     const restartGame = () => {
         game = Game.start();
     }
+
+    const lettersStore = game.getLettersStore()
+
+
+    const useLetterHandler = (event) => {
+        game.useLetter(event.detail.char);
+    }
+
 </script>
 
 {#if $stateStore === STATE_WIN}
@@ -49,7 +57,7 @@
 
     <main>
         {#if $stateStore !== STATE_LOADING}
-            <LetterKeyboard/>
+            <LetterKeyboard letters={$lettersStore} on:useLetter={useLetterHandler}/>
             <Actions/>
         {/if}
         {#if debug}

@@ -1,30 +1,31 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-    import { flip }       from 'svelte/animate';
-    import Alphabet       from '../utils/Alphabet/Alphabet';
+    import { createEventDispatcher } from 'svelte';
+    import { flip }                  from 'svelte/animate';
+    import Alphabet                  from '../utils/Alphabet/Alphabet';
 
-    /**
-     * @type {Game}
-     */
-    const game = getContext('game');
+    export let letters;
 
-    const lettersStore = game.getLettersStore()
+    const dispatch = createEventDispatcher();
 
-    const keyboardPress = (event) => {
+    const letterClickHandler = (char) => {
+        dispatch('useLetter', { char })
+    }
+
+    const keyboardPressHandler = (event) => {
         const char = event.key;
         if (Alphabet.validate(char)) {
             event.preventDefault();
-            game.useLetter(char);
+            letterClickHandler(char)
         }
     }
 </script>
 
-<svelte:window on:keyup={keyboardPress}/>
+<svelte:window on:keyup={keyboardPressHandler}/>
 <div class="btns">
-    {#each $lettersStore as letter (letter.getValue())}
+    {#each letters as letter (letter.getValue())}
         <button class="btn btn--square"
                 animate:flip={{duration: 300}}
-                on:click={() => game.useLetter(letter.getValue())}
+                on:click={() => letterClickHandler(letter.getValue())}
                 disabled={letter.isUsed()}>
             {letter.getLabel()}
         </button>
