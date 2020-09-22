@@ -26,6 +26,7 @@
 
     const lettersStore = game.getLettersStore();
     let actionsStore = game.getActionsStore();
+    const roundsStore = game.getRoundsStore();
 
 
     const useLetterHandler = (event) => {
@@ -51,7 +52,7 @@
 
         <div class="rounds">
             {#if $stateStore !== STATE_LOADING}
-                <Rounds/>
+                <Rounds max={roundsStore.getMax()} current={$roundsStore}/>
             {/if}
         </div>
     </header>

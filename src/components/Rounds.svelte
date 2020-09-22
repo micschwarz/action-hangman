@@ -1,18 +1,12 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-
-    /**
-     * @type {Game}
-     */
-    const game = getContext('game');
-
-    const roundsStore = game.getRoundsStore();
+    export let max;
+    export let current;
 </script>
 
 <div class="rounds">
-    <div class="current">{$roundsStore}</div>
+    <div class="current">{current}</div>
     <div class="separator"></div>
-    <div class="max">{roundsStore.getMax()}</div>
+    <div class="max">{max}</div>
 </div>
 
 <style>
