@@ -32,6 +32,7 @@ export class Game {
         lettersStore.reset();
         roundsStore.reset();
         actionsStore.reset();
+        wordStoreMaster.set(""); // Loading
 
         wordService.fetch()
             .then(word => {
