@@ -1,15 +1,9 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-
-    /**
-     * @type {Game}
-     */
-    const game = getContext('game');
-    let actionsStore = game.getActionsStore();
+    export let actions;
 </script>
 
 <div class="btns">
-    {#each $actionsStore as action (action)}
+    {#each actions as action (action)}
         <div class={`btn btn--no-click btn--${action.getColor()}`} class:btn--inactive={action.didRun()}>
             <i class={`uil uil-${action.getIcon()}`}></i>
         </div>
