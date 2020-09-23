@@ -39,5 +39,6 @@ jobs:
         script: |
           cd /var/www/hangman/
           git pull origin master
+          npm install
           rm -rf ./dist
           npm run-script build
