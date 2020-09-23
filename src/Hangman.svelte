@@ -1,47 +1,50 @@
 <script lang="ts">
-    import LetterKeyboard             from './components/LetterKeyboard.svelte';
-    import Debug                      from './components/helper/Debug.svelte';
-    import { getContext, setContext } from 'svelte';
-    import { Game }                   from './utils/Game';
-    import Word                       from './components/Word.svelte';
-    import Rounds                     from './components/Rounds.svelte';
-    import { STATE_LOSE, STATE_WIN }  from './stores/state';
-    import { STATE_LOADING }          from './stores/state';
-    import WinPopup                   from './components/popups/WinPopup.svelte';
-    import LosePopup                  from './components/popups/LosePopup.svelte';
-    import Popup                      from './components/helper/Popup.svelte';
-    import LoaderPopup                from './components/popups/LoaderPopup.svelte';
-    import Actions                    from './components/Actions.svelte';
-
-    export let debug = getContext('debug');
-
+    import LetterKeyboard            from './components/LetterKeyboard.svelte';
+    import { Game }                  from './utils/Game';
+    import Word                      from './components/Word.svelte';
+    import Rounds                    from './components/Rounds.svelte';
+    import { STATE_LOSE, STATE_WIN } from './stores/state';
+    import { STATE_LOADING }         from './stores/state';
+    import WinPopup                  from './components/popups/WinPopup.svelte';
+    import LosePopup                 from './components/popups/LosePopup.svelte';
+    import LoaderPopup               from './components/popups/LoaderPopup.svelte';
+    import Actions                   from './components/Actions.svelte';
+    import { setContext }            from 'svelte';
 
     let game = Game.start();
-    setContext('game', game)
+    setContext('game', game);
+
     const stateStore = game.getStateStore();
+    const lettersStore = game.getLettersStore();
+    const actionsStore = game.getActionsStore();
+    const roundsStore = game.getRoundsStore();
+    const wordMasterStore = game.getWordMasterStore();
 
     const restartGame = () => {
         game = Game.start();
     }
 
-    const lettersStore = game.getLettersStore();
-    let actionsStore = game.getActionsStore();
-    const roundsStore = game.getRoundsStore();
-
-
     const useLetterHandler = (event) => {
         game.useLetter(event.detail.char);
     }
-
 </script>
 
-{#if $stateStore === STATE_WIN}
-    <WinPopup on:restart={restartGame}/>
-{:else if $stateStore === STATE_LOSE}
-    <LosePopup on:restart={restartGame}/>
-{:else if $stateStore === STATE_LOADING}
-    <LoaderPopup/>
-{/if}
+<WinPopup
+        on:restart={restartGame}
+        show={$stateStore === STATE_WIN}
+        rounds={$roundsStore}
+/>
+
+<LosePopup
+        on:restart={restartGame}
+        show={$stateStore === STATE_LOSE}
+        roundsMax={roundsStore.getMax()}
+        word={$wordMasterStore}
+/>
+
+<LoaderPopup
+        show={$stateStore === STATE_LOADING}
+/>
 
 
 <section>
@@ -61,9 +64,6 @@
         {#if $stateStore !== STATE_LOADING}
             <LetterKeyboard letters={$lettersStore} on:useLetter={useLetterHandler}/>
             <Actions actions={$actionsStore}/>
-        {/if}
-        {#if debug}
-            <Debug/>
         {/if}
     </main>
 

@@ -2,9 +2,8 @@
     import Popup                                             from '../helper/Popup.svelte';
     import { createEventDispatcher, getContext } from 'svelte';
 
-    const game = getContext('game');
-    const wordsStoreMaster = game.getWordMasterStore();
-    const roundsStore = game.getRoundsStore();
+    export let word;
+    export let roundsMax;
 
     const dispatch = createEventDispatcher();
 
@@ -12,11 +11,11 @@
         dispatch('restart');
     }
 </script>
-<Popup>
+<Popup {...$$restProps}>
     <div class="popup-content">
         <h2>Verloren</h2>
         <div class="message">
-            Du hast das Wort {$wordsStoreMaster} nicht {roundsStore.getMax()} Runden erraten.
+            Du hast das Wort {word} nicht {roundsMax} Runden erraten.
         </div>
         <button class="btn" on:click={restart}>Neues Spiel</button>
     </div>

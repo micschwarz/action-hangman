@@ -1,8 +1,14 @@
-<div class="popup">
-    <div class="inner">
-        <slot/>
+<script lang="ts">
+    export let show = false;
+</script>
+
+{#if show}
+    <div class="popup">
+        <div class="inner">
+            <slot/>
+        </div>
     </div>
-</div>
+{/if}
 
 <style>
     .popup {

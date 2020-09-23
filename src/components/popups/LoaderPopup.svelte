@@ -2,7 +2,7 @@
     import Popup from '../helper/Popup.svelte';
 </script>
 
-<Popup>
+<Popup {...$$restProps}>
     <div class="popup-content">
         <h2>Lädt...</h2>
         <div class="loader"></div>

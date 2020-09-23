@@ -1,9 +1,8 @@
 <script lang="ts">
     import Popup                                             from '../helper/Popup.svelte';
-    import { createEventDispatcher, getContext } from 'svelte';
+    import { createEventDispatcher } from 'svelte';
 
-    const game = getContext('game');
-    const roundsStore = game.getRoundsStore();
+    export let rounds;
 
     const dispatch = createEventDispatcher();
 
@@ -11,11 +10,11 @@
         dispatch('restart');
     }
 </script>
-<Popup>
+<Popup {...$$restProps}>
     <div class="popup-content">
         <h2>Gewonnen</h2>
         <div class="message">
-            Du hast das Spiel in {$roundsStore} Runden beendet.
+            Du hast das Spiel in {rounds} Runden beendet.
         </div>
         <button class="btn" on:click={restart}>Neues Spiel</button>
     </div>
