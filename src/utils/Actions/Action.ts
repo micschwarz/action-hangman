@@ -62,6 +62,11 @@ export abstract class Action {
     abstract getIcon(): string;
 
     /**
+     * Get action name
+     */
+    abstract getName(): string;
+
+    /**
      * Get action color.
      */
     getColor(): string {

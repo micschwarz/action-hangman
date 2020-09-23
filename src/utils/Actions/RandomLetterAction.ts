@@ -24,4 +24,8 @@ export class RandomLetterAction extends Action {
     protected _reset() {
         // Do nothing
     }
+
+    getName(): string {
+        return "Zufälliger Buchstabe";
+    }
 }

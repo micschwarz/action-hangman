@@ -6,6 +6,7 @@ import { LocalWord } from '../services/word/LocalWord';
 import { actionsStore } from '../stores/actions';
 import { get } from 'svelte/store';
 import type { Word } from "../services/word/Word";
+import type { Action } from "./Actions/Action";
 
 export class Game {
 
@@ -15,6 +16,7 @@ export class Game {
     private readonly _roundsStore = roundsStore;
     private readonly _stateStore = stateStore;
     private readonly _actionsStore = actionsStore;
+    private _actionCallbacks: ((action: Action) => void)[] = [];
 
     /**
      * Creates game.
@@ -76,8 +78,12 @@ export class Game {
         if (this.getLettersStore().use(char)) {
             this.getRoundsStore().decrement();
             this.getActionsStore().update();
-            this.runRandomAction(0.1);
+            this.runRandomAction(0.9);
         }
+    };
+
+    onActionFire(fn: (action: Action) => void) {
+        this._actionCallbacks.push(fn)
     };
 
     /**
@@ -88,10 +94,12 @@ export class Game {
      */
     private runRandomAction(probability: number) {
         const actionsStore = this.getActionsStore();
-        const actions = get(actionsStore).filter(action => action.canRun() && !action.didRun());
+        const actions: Action[] = get(actionsStore).filter(action => action.canRun() && !action.didRun());
 
         if (actions.length > 0 && Math.random() <= probability) {
-            actionsStore.run(actions[~~(actions.length * Math.random())]);
+            const action = actions[~~(actions.length * Math.random())];
+            actionsStore.run(action);
+            this._actionCallbacks.forEach((fn) => fn(action));
         }
     }
 }

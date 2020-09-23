@@ -17,6 +17,10 @@
     cursor           : pointer;
 
     transition       : all .01s ease-out;
+
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
 }
 
 .btn:hover {

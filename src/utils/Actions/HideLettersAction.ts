@@ -14,4 +14,8 @@ export class HideLettersAction extends Action {
         lettersStore.hideLabel(true);
         return 1;
     }
+
+    getName(): string {
+        return "Versteckte Buchstaben";
+    }
 }

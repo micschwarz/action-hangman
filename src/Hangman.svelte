@@ -1,14 +1,15 @@
 <script lang="ts">
-    import LetterKeyboard            from './components/LetterKeyboard.svelte';
     import { Game }                  from './utils/Game';
-    import Word                      from './components/Word.svelte';
-    import Rounds                    from './components/Rounds.svelte';
     import { STATE_LOSE, STATE_WIN } from './stores/state';
     import { STATE_LOADING }         from './stores/state';
+    import LetterKeyboard            from './components/LetterKeyboard.svelte';
+    import Word                      from './components/Word.svelte';
+    import Rounds                    from './components/Rounds.svelte';
     import WinPopup                  from './components/popups/WinPopup.svelte';
     import LosePopup                 from './components/popups/LosePopup.svelte';
     import LoaderPopup               from './components/popups/LoaderPopup.svelte';
     import Actions                   from './components/Actions.svelte';
+    import ActionPopup               from './components/popups/ActionPopup.svelte';
 
     let game = Game.start();
 
@@ -19,6 +20,15 @@
     const wordMasterStore = game.getWordMasterStore();
     const wordStore = game.getWordStore();
 
+    let currentAction = undefined;
+
+    const setCurrentAction = (action) => {
+        currentAction = action;
+        setTimeout(() => {
+            currentAction = undefined;
+        }, 800)
+    }
+
     const restartGame = () => {
         game = Game.start();
     }
@@ -26,7 +36,11 @@
     const useLetterHandler = (event) => {
         game.useLetter(event.detail.char);
     }
+
+    game.onActionFire(setCurrentAction);
 </script>
+
+<ActionPopup show={currentAction !== undefined} action={currentAction}/>
 
 <WinPopup
         on:restart={restartGame}
@@ -44,7 +58,6 @@
 <LoaderPopup
         show={$stateStore === STATE_LOADING}
 />
-
 
 <section>
     <header>

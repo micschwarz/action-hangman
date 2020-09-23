@@ -1,9 +1,11 @@
 <script lang="ts">
+    import { fade } from 'svelte/transition';
+
     export let show = false;
 </script>
 
 {#if show}
-    <div class="popup">
+    <div class="popup" transition:fade|local={{y: 100, duration: 50}}>
         <div class="inner">
             <slot/>
         </div>
@@ -28,8 +30,6 @@
         overflow        : hidden;
         padding         : 1rem;
         background      : rgba(10, 10, 15, .5);
-
-        backdrop-filter : blur(2px);
     }
 
     .inner {

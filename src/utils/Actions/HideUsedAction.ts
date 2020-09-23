@@ -14,4 +14,8 @@ export class HideUsedAction extends Action {
     protected _reset() {
         lettersStore.hideUsed(false);
     }
+
+    getName(): string {
+        return "Verstecke Benutzte";
+    }
 }
