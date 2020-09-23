@@ -30,6 +30,7 @@ jobs:
 
     steps:
     - name: SSH and deploy node app
+      if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.SSH_HOST }}
