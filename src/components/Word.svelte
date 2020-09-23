@@ -1,16 +1,9 @@
 <script lang="ts">
-    import { getContext } from 'svelte';
-
-    /**
-     * @type {Game}
-     */
-    const game = getContext('game');
-    const word = game.getWordStore();
-
+    export let word;
 </script>
 
 <div class="word">
-    {#each $word.toUpperCase().split('') as char}
+    {#each word.toUpperCase().split('') as char}
         <div class="char">
             {char}
         </div>

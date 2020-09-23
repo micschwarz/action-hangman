@@ -9,16 +9,15 @@
     import LosePopup                 from './components/popups/LosePopup.svelte';
     import LoaderPopup               from './components/popups/LoaderPopup.svelte';
     import Actions                   from './components/Actions.svelte';
-    import { setContext }            from 'svelte';
 
     let game = Game.start();
-    setContext('game', game);
 
     const stateStore = game.getStateStore();
     const lettersStore = game.getLettersStore();
     const actionsStore = game.getActionsStore();
     const roundsStore = game.getRoundsStore();
     const wordMasterStore = game.getWordMasterStore();
+    const wordStore = game.getWordStore();
 
     const restartGame = () => {
         game = Game.start();
@@ -50,7 +49,7 @@
 <section>
     <header>
         <div class="word">
-            <Word/>
+            <Word word={$wordStore}/>
         </div>
 
         <div class="rounds">
