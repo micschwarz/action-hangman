@@ -16,9 +16,6 @@
     "typescript": "^3.9.3"
   },
   "dependencies": {
-    "buttons.css": "^1.0.4",
-    "colors.css": "^3.0.0",
-    "sirv-cli": "^1.0.0",
     "workbox-core": "^5.1.4",
     "workbox-routing": "^5.1.4",
     "workbox-strategies": "^5.1.4"
