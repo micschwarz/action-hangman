@@ -18,4 +18,8 @@ export class HideUsedAction extends Action {
     getName(): string {
         return "Verstecke Benutzte";
     }
+
+    getDescription(): string {
+        return "Alle benutzten Buchstaben werden versteckt";
+    }
 }

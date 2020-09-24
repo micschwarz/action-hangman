@@ -1,8 +1,12 @@
 import { Action } from './Action';
 import { lettersStore } from '../../stores/letters';
 import { get } from 'svelte/store';
+import type { Letter } from "../Alphabet/Letter";
 
 export class RandomLetterAction extends Action {
+
+    private randomChar: Letter;
+
     getIcon(): string {
         return 'plus-circle';
     }
@@ -15,9 +19,9 @@ export class RandomLetterAction extends Action {
         const unusedChars = get(lettersStore)
             .filter(letter => !letter.isUsed());
 
-        const randomChar = unusedChars[~~(unusedChars.length * Math.random())];
+        this.randomChar = unusedChars[~~(unusedChars.length * Math.random())];
 
-        lettersStore.use(randomChar.getValue());
+        lettersStore.use(this.randomChar.getValue());
         return 0;
     }
 
@@ -27,5 +31,9 @@ export class RandomLetterAction extends Action {
 
     getName(): string {
         return "Zufälliger Buchstabe";
+    }
+
+    getDescription(): string {
+        return `Der Buchstabe <b>${this.randomChar.getLabel()}</b> wurde für dich aktiviert`;
     }
 }

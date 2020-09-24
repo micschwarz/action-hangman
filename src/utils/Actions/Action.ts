@@ -72,4 +72,9 @@ export abstract class Action {
     getColor(): string {
         return 'red'
     }
+
+    /**
+     * Get description of action.
+     */
+    abstract getDescription(): string;
 }

@@ -18,4 +18,8 @@ export class HideLettersAction extends Action {
     getName(): string {
         return "Versteckte Buchstaben";
     }
+
+    getDescription(): string {
+        return "Alle Buchstaben werden versteckt und vertauscht";
+    }
 }
