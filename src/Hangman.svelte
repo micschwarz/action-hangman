@@ -31,6 +31,7 @@
 
     const restartGame = () => {
         game = Game.start();
+        game.onActionFire(setCurrentAction);
     }
 
     const useLetterHandler = (event) => {
