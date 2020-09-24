@@ -1,6 +1,5 @@
 import { writable } from 'svelte/store';
-import Alphabet     from '../utils/Alphabet/Alphabet';
-import { Shuffler } from '../utils/Shuffler';
+import Alphabet from '../utils/Alphabet/Alphabet';
 import type { Letter } from "../utils/Alphabet/Letter";
 
 const createLettersStore = () => {
@@ -24,15 +23,6 @@ const createLettersStore = () => {
                 return letters;
             });
             return didUpdate;
-        },
-        hideUsed : (isHidden) => {
-            update((letters) => {
-                letters.forEach((letter) => {
-                    letter.setUseViewable(isHidden);
-                });
-
-                return letters;
-            });
         },
         modify: (fn: (letters: Letter[]) => Letter[]) => {
             update((letters) => fn(letters));

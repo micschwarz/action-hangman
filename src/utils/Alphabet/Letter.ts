@@ -62,7 +62,7 @@ export class Letter {
      *
      * @param isHidden
      */
-    setUseViewable(isHidden: boolean) {
+    setUseHidden(isHidden: boolean) {
         this.isUsedHidden = isHidden;
     }
 

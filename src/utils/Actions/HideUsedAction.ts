@@ -7,12 +7,19 @@ export class HideUsedAction extends Action {
     }
 
     protected _run(): number {
-        lettersStore.hideUsed(true);
+        lettersStore.modify(letters => {
+            letters.forEach(letter => letter.setUseHidden(true));
+            return letters;
+        });
+
         return 1;
     }
 
     protected _reset() {
-        lettersStore.hideUsed(false);
+        lettersStore.modify(letters => {
+            letters.forEach(letter => letter.setUseHidden(false));
+            return letters;
+        })
     }
 
     getName(): string {

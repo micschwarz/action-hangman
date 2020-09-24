@@ -78,7 +78,7 @@ export class Game {
         if (this.getLettersStore().use(char)) {
             this.getRoundsStore().decrement();
             this.getActionsStore().update();
-            this.runRandomAction(0.1);
+            this.runRandomAction(0.9);
         }
     };
 
