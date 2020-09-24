@@ -1,7 +1,6 @@
 export class Letter {
     private readonly value: string;
-    private readonly label: string;
-    private isLabelHidden: boolean = false;
+    private label: string;
     private used: boolean = false;
     private isUsedHidden: boolean = false;
 
@@ -9,27 +8,30 @@ export class Letter {
      * Create a letter.
      *
      * @param value
-     * @param view
      */
-    constructor(value: string, view: string = undefined) {
+    constructor(value: string) {
         this.value = value;
-        this.label = (view || value).toUpperCase();
+        this.resetLabel();
     }
 
     /**
      * Get the label.
      */
     getLabel(): string {
-        return this.isLabelHidden ? '?' : this.label;
+        return this.label;
     }
 
     /**
-     * Set whether the label is viewable or not.
+     * Set the label.
      *
-     * @param isHidden
+     * @param label
      */
-    setLabelViewable(isHidden: boolean) {
-        this.isLabelHidden = isHidden;
+    setLabel(label: string) {
+        this.label = label.toUpperCase();
+    }
+
+    resetLabel() {
+        this.label = this.value.toUpperCase();
     }
 
     /**

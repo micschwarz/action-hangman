@@ -1,5 +1,6 @@
 import { lettersStore } from '../../stores/letters';
 import { Action } from './Action';
+import { Shuffler } from "../Shuffler";
 
 export class HideLettersAction extends Action {
     getIcon(): string {
@@ -7,11 +8,20 @@ export class HideLettersAction extends Action {
     }
 
     protected _reset() {
-        lettersStore.hideLabel(false);
+        lettersStore.modify(letters => {
+            letters.forEach(letter => letter.resetLabel());
+
+            return letters.sort((letter, other) => letter.compare(other));
+        })
     }
 
     protected _run(): number {
-        lettersStore.hideLabel(true);
+        lettersStore.modify(letters => {
+            letters.forEach(letter => letter.setLabel('?'));
+
+            return Shuffler.random(letters);
+        })
+
         return 1;
     }
 

@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 import Alphabet     from '../utils/Alphabet/Alphabet';
 import { Shuffler } from '../utils/Shuffler';
+import type { Letter } from "../utils/Alphabet/Letter";
 
 const createLettersStore = () => {
     const { subscribe, update, set } = writable([]);
@@ -24,19 +25,6 @@ const createLettersStore = () => {
             });
             return didUpdate;
         },
-        hideLabel: (isHidden) => {
-            update((letters) => {
-                letters.forEach((letter) => {
-                    letter.setLabelViewable(isHidden);
-                });
-
-                if (isHidden) {
-                    return Shuffler.random(letters);
-                }
-
-                return letters.sort((letter, other) => letter.compare(other));
-            });
-        },
         hideUsed : (isHidden) => {
             update((letters) => {
                 letters.forEach((letter) => {
@@ -45,6 +33,9 @@ const createLettersStore = () => {
 
                 return letters;
             });
+        },
+        modify: (fn: (letters: Letter[]) => Letter[]) => {
+            update((letters) => fn(letters));
         }
     }
 }
