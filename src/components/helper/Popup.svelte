@@ -40,7 +40,8 @@
 
         padding       : 1rem;
 
-        background    : var(--color-background);
+        background    : var(--color-background-lighten);
+        border        : 1px solid var(--color-background-border);
         border-radius : 5px;
         box-shadow    : 0 .4rem .8rem rgba(0, 0, 0, .2);
     }

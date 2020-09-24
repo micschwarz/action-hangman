@@ -9,7 +9,7 @@
     import LosePopup                 from './components/popups/LosePopup.svelte';
     import LoaderPopup               from './components/popups/LoaderPopup.svelte';
     import Actions                   from './components/Actions.svelte';
-    import ActionPopup               from './components/popups/ActionPopup.svelte';
+    import ActionSnackbar            from './components/snackbars/ActionSnackbar.svelte';
 
     let game = Game.start();
 
@@ -26,7 +26,7 @@
         currentAction = action;
         setTimeout(() => {
             currentAction = undefined;
-        }, 800)
+        }, 2000)
     }
 
     const restartGame = () => {
@@ -41,7 +41,7 @@
     game.onActionFire(setCurrentAction);
 </script>
 
-<ActionPopup show={currentAction !== undefined} action={currentAction}/>
+<ActionSnackbar show={currentAction !== undefined} action={currentAction}/>
 
 <WinPopup
         on:restart={restartGame}

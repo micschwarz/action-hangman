@@ -3,7 +3,8 @@
 @import "./loader.css";
 
 :root {
-    --z-index-popup          : 100;
+    --z-index-popup    : 100;
+    --z-index-snackbar : 200;
 }
 
 * {
@@ -19,5 +20,5 @@ body {
 }
 
 body.no-scroll {
-    overflow: hidden;
+    overflow : hidden;
 }
