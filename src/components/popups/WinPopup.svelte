@@ -26,9 +26,15 @@
             Du hast das Spiel in {rounds} Runden beendet.
         </div>
         <div class="btns">
-            <button class="btn" on:click={restart}>Neues Spiel</button>
+            <button class="btn" on:click={restart}>
+                <span class="btn-media"><i class="uil uil-play"></i></span>
+                Neues Spiel
+            </button>
             {#if navigator.share}
-                <button class="btn btn--green" on:click={share}>Teilen</button>
+                <button class="btn btn--green" on:click={share}>
+                    <span class="btn-media"><i class="uil uil-share-alt"></i></span>
+                    Teilen
+                </button>
             {/if}
         </div>
     </div>
@@ -48,7 +54,7 @@
 
     .btns .btn {
         margin : .5rem;
-        width  : 7rem;
+        width  : 7.8rem;
     }
 
     h2,

@@ -44,6 +44,10 @@
     cursor     : not-allowed;
 }
 
+.btn .btn-media {
+    margin-right : .3rem;
+}
+
 /* MODIFIER */
 .btn.btn--square {
     width : 3rem;
