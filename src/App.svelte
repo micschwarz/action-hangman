@@ -6,7 +6,7 @@
     let userLoggedIn = false;
 
     firebase.auth().onAuthStateChanged(function (user) {
-        userLoggedIn = user !== undefined;
+        userLoggedIn = !!user;
     });
 </script>
 
