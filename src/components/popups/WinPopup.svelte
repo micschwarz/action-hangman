@@ -14,7 +14,7 @@
     const share = () => {
         navigator.share({
             title: 'Ich habe gewonnen! 😃',
-            text : `Leider habe ich das Wort ${ word } in ${ rounds } herausgefunden! Kannst du mich schlagen?`,
+            text : `Ich habe das Wort ${ word } in ${ rounds } herausgefunden! Kannst du mich schlagen?`,
             url  : window.location.origin,
         });
     };
