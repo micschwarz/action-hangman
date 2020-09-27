@@ -15,4 +15,5 @@
     --color-primary            : var(--yellow);
     --color-primary-darken     : var(--yellow-darken);
     --color-text               : #f4f4f4;
+    --color-text-translucent   : rgba(244, 244, 244, .5);
 }

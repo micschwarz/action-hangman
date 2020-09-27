@@ -1,0 +1,52 @@
+.form {
+    position : relative;
+    display  : block;
+    margin   : .5rem 0;
+}
+
+.form .form-input {
+    width         : 100%;
+
+    outline       : none;
+    padding       : .75rem 1rem;
+    border        : 1px solid var(--color-text-translucent);
+    border-radius : 2px;
+    background    : var(--color-background-lighten);
+    box-shadow    : 0 .3rem var(--color-text-translucent);
+    color         : var(--color-text);
+
+    transition    : all .01s ease-out;
+
+    font-size     : 1.1em;
+}
+
+.form.form--has-error .form-input {
+    box-shadow : 0 .3rem var(--red);
+    border     : 1px solid var(--red);
+}
+
+.form .form-input:focus {
+    box-shadow : 0 .3rem var(--color-text);
+    border     : 1px solid var(--color-text);
+}
+
+.form .form-label {
+    display       : block;
+    margin-bottom : .2rem;
+    font-weight   : bold;
+}
+
+.form.form--has-error .form-label {
+    color : var(--red);
+}
+
+.form .form-error {
+    display    : none;
+
+    margin-top : .6rem;
+    color      : var(--red);
+}
+
+.form.form--has-error .form-error {
+    display : block;
+}

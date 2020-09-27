@@ -1,10 +1,17 @@
 <script lang="ts">
-    import Hangman          from './Hangman.svelte';
-    import { setContext }   from 'svelte';
+    import Hangman  from './Hangman.svelte';
+    import firebase from "firebase/app";
+    import Login    from './Login.svelte';
 
-    export let debug = false;
+    let userLoggedIn = false;
 
-    setContext('debug', debug)
+    firebase.auth().onAuthStateChanged(function (user) {
+        userLoggedIn = user !== undefined;
+    });
 </script>
 
-<Hangman/>
+{#if userLoggedIn}
+    <Hangman/>
+{:else}
+    <Login/>
+{/if}
