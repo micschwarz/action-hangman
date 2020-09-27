@@ -47,6 +47,7 @@
         on:restart={restartGame}
         show={$stateStore === STATE_WIN}
         rounds={$roundsStore}
+        word={$wordMasterStore}
 />
 
 <LosePopup
