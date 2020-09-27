@@ -26,6 +26,7 @@
 
         width           : 100vw;
         height          : 100vh;
+        height          : -webkit-fill-available;
 
         overflow        : hidden;
         padding         : 1rem;
