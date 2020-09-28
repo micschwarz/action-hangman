@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Hangman             from './Hangman.svelte';
-    import Login               from './Login.svelte';
-    import Loading             from './Loading.svelte';
+    import Hangman             from './Pages/Hangman.svelte';
+    import Login               from './Pages/Login.svelte';
+    import Loading             from './Pages/Loading.svelte';
     import { User, UserState } from './services/user/User';
 
     const user = new User();

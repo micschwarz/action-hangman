@@ -1,7 +1,7 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
     import { flip }                  from 'svelte/animate';
-    import Alphabet                  from '../utils/Alphabet/Alphabet';
+    import Alphabet                  from '../../utils/Alphabet/Alphabet';
 
     export let letters;
 

@@ -1,5 +1,5 @@
 <script>
-    import Logo     from './components/Logo.svelte';
+    import Logo     from '../Components/Logo.svelte';
     import { fade } from 'svelte/transition';
 </script>
 <main class="screen-loading" out:fade={{delay: 100, duration: 100}}>

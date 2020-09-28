@@ -1,5 +1,5 @@
 <script>
-    import Snackbar from '../helper/Snackbar.svelte';
+    import Snackbar from '../Helper/Snackbar.svelte';
 
     export let action;
 </script>

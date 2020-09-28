@@ -1,29 +1,29 @@
 <script lang="ts">
-    import Popup                                 from '../helper/Popup.svelte';
-    import { createEventDispatcher, getContext } from 'svelte';
+    import Popup                     from '../Helper/Popup.svelte';
+    import { createEventDispatcher } from 'svelte';
 
+    export let rounds;
     export let word;
-    export let roundsMax;
 
     const dispatch = createEventDispatcher();
 
     const restart = () => {
         dispatch('restart');
-    }
+    };
 
     const share = () => {
         navigator.share({
-            title: 'Ich habe verloren 😔',
-            text : `Leider habe ich das Wort ${ word } nicht in ${ roundsMax } herausgefunden. Kannst du es besser?`,
+            title: 'Ich habe gewonnen! 😃',
+            text : `Ich habe das Wort ${ word } in ${ rounds } herausgefunden! Kannst du mich schlagen?`,
             url  : window.location.origin,
         });
     };
 </script>
 <Popup {...$$restProps}>
     <div class="popup-content">
-        <h2>Verloren</h2>
+        <h2>Gewonnen</h2>
         <div class="message">
-            Du hast das Wort {word} nicht {roundsMax} Runden erraten.
+            Du hast das Spiel in {rounds} Runden beendet.
         </div>
         <div class="btns">
             <button class="btn" on:click={restart}>

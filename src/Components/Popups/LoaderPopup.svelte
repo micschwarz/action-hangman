@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Popup from '../helper/Popup.svelte';
+    import Popup from '../Helper/Popup.svelte';
 </script>
 
 <Popup {...$$restProps}>
