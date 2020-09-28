@@ -105,6 +105,16 @@
     color    : var(--color-text-translucent);
 }
 
+.form-2-error {
+    color   : var(--red);
+    margin  : .5rem 1rem;
+    display : none;
+}
+
+.form-2--has-error .form-2-error {
+    display : block;
+}
+
 .form-2-input:disabled {
     cursor     : not-allowed;
     box-shadow : 0 .075rem 1rem rgba(0, 0, 0, .3);
