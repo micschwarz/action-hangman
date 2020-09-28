@@ -5,6 +5,7 @@
     import Loading             from './Pages/Loading.svelte';
     import { User, UserState } from './services/user/User';
     import MainMenu            from './Pages/MainMenu.svelte';
+    import Profile             from './Pages/Profile.svelte';
 
     const user = new User();
     let userState = user.getState();
@@ -20,8 +21,9 @@
     <Login {user}/>
 {:else if userState === UserState.LOGGED_IN}
     <Router>
-        <Route path="/" component={MainMenu}/>
+        <Route path="/" component={MainMenu} {user}/>
         <Route path="/game" component={Hangman}/>
+        <Route path="/profile" component={Profile} {user}/>
     </Router>
 {/if}
 

@@ -43,7 +43,7 @@
 
     <form class="form-login">
         <label class="form" class:form--has-error={errorEmail} for="email">
-            <span class="form-label">Nutzername</span>
+            <span class="form-label">E-Mail</span>
             <input class="form-input" type="email" name="email" id="email"
                    placeholder="user@micschwarz.games"
                    bind:value={email} on:input={removeErrors}>

@@ -3,9 +3,8 @@
     import Icon         from '../Components/Icon.svelte';
     import { navigate } from "svelte-routing";
 
-    const playSinglePlayer = () => {
-        navigate('/game')
-    }
+    export let user;
+    let displayName = user.getDisplayName();
 </script>
 
 <main class="menu">
@@ -13,15 +12,20 @@
         <Logo size={4}/>
         <span class="logo-text">angman</span>
     </div>
+    {#if displayName}
+        <div class="greeting">
+            Hallo {displayName}! Lust auf eine Runde?
+        </div>
+    {/if}
     <nav class="navigation">
-        <button class="btn" on:click={playSinglePlayer}>
+        <button class="btn" on:click={() => navigate('/game')}>
             <span class="btn-media"><Icon name="play"/></span>
             Einzelspieler
         </button>
-        <!--<button class="btn btn&#45;&#45;green">
+        <button class="btn btn--green" on:click={() => navigate('/profile')}>
             <span class="btn-media"><Icon name="user"/></span>
-            User
-        </button>-->
+            Profil
+        </button>
     </nav>
 </main>
 
@@ -53,5 +57,13 @@
     .navigation .btn {
         width         : 10rem;
         margin-bottom : 1rem;
+    }
+
+    .greeting {
+        display         : flex;
+        justify-content : center;
+        margin-top      : 1rem;
+
+        color           : var(--color-text-darken);
     }
 </style>

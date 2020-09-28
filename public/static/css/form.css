@@ -20,6 +20,12 @@
     font-size     : 1.1em;
 }
 
+.form .form-input:disabled {
+    background : rgba(255, 255, 255, .05);
+    color      : var(--color-text-darken);
+    box-shadow : 0 .3rem var(--color-text-translucent);
+}
+
 .form.form--has-error .form-input {
     box-shadow : 0 .3rem var(--red);
     border     : 1px solid var(--red);
@@ -49,4 +55,9 @@
 
 .form.form--has-error .form-error {
     display : block;
+}
+
+.form.form--required .form-label:after {
+    color   : var(--red);
+    content : '*';
 }
