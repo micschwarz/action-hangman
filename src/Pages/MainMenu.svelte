@@ -109,22 +109,27 @@
     }
 
     .card {
-        width         : 13rem;
-        height        : 20rem;
-        padding       : 1.5rem;
+        width                       : 13rem;
+        height                      : 20rem;
+        padding                     : 1.5rem;
 
-        position      : relative;
+        position                    : relative;
 
-        margin-right  : 1rem;
+        margin-right                : 1rem;
 
-        background    : var(--yellow);
-        border-radius : .5rem;
-        box-shadow    : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
-        overflow      : hidden;
+        background                  : var(--yellow);
+        border-radius               : .5rem;
+        box-shadow                  : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+        overflow                    : hidden;
 
-        transition    : transform .1s ease-in-out;
+        transition                  : transform .1s ease-in-out;
 
-        cursor        : pointer;
+        cursor                      : pointer;
+
+        -webkit-backface-visibility : hidden;
+        -moz-backface-visibility    : hidden;
+        -webkit-transform           : translate3d(0, 0, 0);
+        -moz-transform              : translate3d(0, 0, 0);
     }
 
     .card.card--green {
