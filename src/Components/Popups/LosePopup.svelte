@@ -29,7 +29,7 @@
     <div class="popup-content">
         <h2>Verloren</h2>
         <div class="message">
-            Du hast das Wort {word} nicht {roundsMax} Runden erraten.
+            Du hast das Wort {word} nicht in {roundsMax} Runden erraten.
         </div>
         <div class="btns">
             <button class="btn" on:click={restart}>
