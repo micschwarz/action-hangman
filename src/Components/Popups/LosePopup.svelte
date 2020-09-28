@@ -1,6 +1,8 @@
 <script lang="ts">
-    import Popup                                 from '../Helper/Popup.svelte';
-    import { createEventDispatcher, getContext } from 'svelte';
+    import Popup                     from '../Helper/Popup.svelte';
+    import { createEventDispatcher } from 'svelte';
+    import Icon                      from '../Icon.svelte';
+    import { navigate }              from 'svelte-routing';
 
     export let word;
     export let roundsMax;
@@ -18,6 +20,10 @@
             url  : window.location.origin,
         });
     };
+
+    const toMenu = () => {
+        navigate('/');
+    }
 </script>
 <Popup {...$$restProps}>
     <div class="popup-content">
@@ -27,13 +33,16 @@
         </div>
         <div class="btns">
             <button class="btn" on:click={restart}>
-                <span class="btn-media"><i class="uil uil-play"></i></span>
+                <span class="btn-media"><Icon name="play"/></span>
                 Neues Spiel
             </button>
+            <button class="btn" on:click={toMenu}>
+                <span class="btn-media"><Icon name="home-alt"/></span>
+                Menü
+            </button>
             {#if navigator.share}
-                <button class="btn btn--green" on:click={share}>
-                    <span class="btn-media"><i class="uil uil-share-alt"></i></span>
-                    Teilen
+                <button class="btn btn--green btn--square" on:click={share}>
+                    <Icon name="share-alt"/>
                 </button>
             {/if}
         </div>
@@ -54,7 +63,6 @@
 
     .btns .btn {
         margin : .5rem;
-        width  : 7.8rem;
     }
 
     h2,
