@@ -92,7 +92,7 @@
     }
 
     .form-login .btn {
-        width      : 50%;
+        width      : 10rem;
         margin-top : .5rem;
     }
 </style>
