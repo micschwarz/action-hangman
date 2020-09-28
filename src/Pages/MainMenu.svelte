@@ -114,6 +114,7 @@
         padding                     : 1.5rem;
 
         position                    : relative;
+        z-index                     : 1;
 
         margin-right                : 1rem;
 
