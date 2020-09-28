@@ -1,11 +1,15 @@
 <script>
-    import Logo               from '../Components/Logo.svelte';
-    import Icon               from '../Components/Icon.svelte';
-    import { GameType }       from '../utils/Game';
-    import { navigate, Link } from "svelte-routing";
+    import Logo         from '../Components/Logo.svelte';
+    import Icon         from '../Components/Icon.svelte';
+    import { GameType } from '../utils/Game';
+    import { navigate } from "svelte-routing";
 
     export let user;
     let displayName = user.getDisplayName();
+
+    const logout = () => {
+        user.logout();
+    }
 </script>
 
 <main class="menu">
@@ -15,60 +19,161 @@
     </div>
     {#if displayName}
         <div class="greeting">
-            Hallo {displayName}! Lust auf eine Runde?
+            Hallo {displayName}, Lust auf eine Runde?
         </div>
     {/if}
     <nav class="navigation">
-        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL.toString()})}>
-            <span class="btn-media"><Icon name="play"/></span>
-            Einzelspieler
-        </button>
-        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER.toString()})}>
-            <span class="btn-media"><Icon name="play"/></span>
-            Lokaler Multiplayer
-        </button>
-        <button class="btn btn--green" on:click={() => navigate('/profile')}>
-            <span class="btn-media"><Icon name="user"/></span>
-            Profil
-        </button>
+        <div class="game-modes-scroll">
+            <div class="game-modes">
+                <div class="card"
+                     on:click={() => navigate('/game', {state: GameType.LOCAL.toString()})}>
+                    <div class="icon">
+                        <Icon name="user"/>
+                    </div>
+                    <h3 class="title">Einzelspieler</h3>
+                    <div class="description">
+                        Spiele alleine
+                    </div>
+                </div>
+
+                <div class="card card--green"
+                     on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER.toString()})}>
+                    <div class="icon">
+                        <Icon name="users-alt"/>
+                    </div>
+                    <h3 class="title">Multiplayer Lokal</h3>
+                    <div class="description">
+                        Spiele zu zweit an einem Gerät
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="actions">
+            <button class="btn-2" on:click={() => navigate('/profile')}>
+                <span class="btn-2-icon"><Icon name="users-alt"/></span>
+                Profil
+            </button>
+            <button class="btn-2 btn-2--red" on:click={logout}>
+                <span class="btn-2-icon"><Icon name="sign-out-alt"/></span>
+                Logout
+            </button>
+        </div>
     </nav>
 </main>
 
 <style>
     .menu {
-        padding   : 1rem;
+        padding   : 1.5rem;
         max-width : 40rem;
+        width     : 100%;
         margin    : 0 auto;
     }
 
     .logo {
-        display         : flex;
-        align-items     : center;
-        justify-content : center;
+        display     : flex;
+        align-items : center;
     }
 
     .logo .logo-text {
-        font-size   : 1.8em;
+        font-weight : bold;
         margin-left : .3rem;
-    }
-
-    .navigation {
-        display        : flex;
-        flex-direction : column;
-        align-items    : center;
-        margin-top     : 1.5rem;
-    }
-
-    .navigation .btn {
-        width         : 10rem;
-        margin-bottom : 1rem;
+        font-size   : 1.8em;
     }
 
     .greeting {
-        display         : flex;
-        justify-content : center;
-        margin-top      : 1rem;
+        margin : .5rem 0;
+        color  : var(--color-text-darken);
+    }
 
-        color           : var(--color-text-darken);
+    .navigation {
+        margin-top : -2rem;
+    }
+
+    .game-modes-scroll {
+        overflow-y         : auto;
+        overflow-x         : auto;
+        margin             : -1.5rem -1.5rem;
+        padding            : 3rem 0;
+
+        -ms-overflow-style : none;
+        scrollbar-width    : none;
+    }
+
+    .game-modes-scroll::-webkit-scrollbar {
+        display : none;
+    }
+
+    .game-modes {
+        display : flex;
+        width   : max-content;
+    }
+
+    .card {
+        width         : 13rem;
+        height        : 20rem;
+        padding       : 1.5rem;
+
+        position      : relative;
+
+        margin-right  : 1rem;
+
+        background    : var(--yellow);
+        border-radius : .5rem;
+        box-shadow    : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+        overflow      : hidden;
+
+        transition    : transform .1s ease-in-out;
+
+        cursor        : pointer;
+    }
+
+    .card.card--green {
+        background : var(--green);
+    }
+
+    .card .icon {
+        font-size : 15rem;
+        color     : rgba(255, 255, 255, .4);
+
+        position  : absolute;
+        bottom    : -20%;
+        left      : -20%;
+    }
+
+    .card .title {
+        margin    : 0;
+        font-size : 1.5em;
+        color     : rgba(255, 255, 255, .9);
+    }
+
+    .card .description {
+        margin-top : .3rem;
+        font-size  : 1.1em;
+        color      : var(--color-text-translucent);
+    }
+
+    .card:first-child {
+        margin-left : 1.5rem;
+    }
+
+    .card:last-child {
+        margin-right : 1.5rem;
+    }
+
+    .card:hover {
+        transform : scale(1.05) translateY(-.1rem);
+    }
+
+    .actions {
+        display : flex;
+    }
+
+    .actions .btn-2 {
+        margin-right : 1rem;
+        width        : 8rem;
+    }
+
+    .actions .btn-2:last-child {
+        margin-right : 0;
     }
 </style>

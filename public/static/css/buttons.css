@@ -75,3 +75,45 @@
     --btn-shade      : var(--green-darken);
 }
 
+.btn-2 {
+    --color-btn         : var(--color-primary);
+    --color-btn--active : var(--color-primary-darken);
+
+    padding             : 1rem;
+
+    border              : none;
+    border-radius       : .5rem;
+    box-shadow          : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+
+    cursor              : pointer;
+    background          : var(--color-btn);
+    color               : var(--color-text);
+    font-size           : 1.1em;
+    font-weight         : bold;
+
+    outline             : none;
+
+    transition          : transform .1s ease-in-out;
+
+    display             : flex;
+    justify-content     : center;
+    align-items         : center;
+}
+
+.btn-2:hover {
+    transform : scale(1.03) translateY(-.05rem);
+}
+
+.btn-2:active {
+    transform  : scale(0.97) translateY(.05rem);
+    background : var(--color-btn--active);
+}
+
+.btn-2 .btn-2-icon {
+    margin-right : .7rem;
+}
+
+.btn-2.btn-2--red {
+    --color-btn         : var(--red);
+    --color-btn--active : var(--red-darken);
+}

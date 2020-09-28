@@ -57,6 +57,14 @@ export class User {
     getEmail(): string | null {
         return this.email;
     }
+
+    logout() {
+        this.state = UserState.LOGGING_IN;
+        firebase.auth()
+            .signOut()
+            .then(() => this.state = UserState.LOGGED_OUT)
+            .catch(() => this.state = UserState.LOGGED_OUT);
+    }
 }
 
 
