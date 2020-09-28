@@ -1,7 +1,8 @@
 <script>
-    import Logo from './components/Logo.svelte';
+    import Logo     from './components/Logo.svelte';
+    import { fade } from 'svelte/transition';
 </script>
-<main class="screen-loading">
+<main class="screen-loading" out:fade={{delay: 100, duration: 100}}>
     <Logo/>
     <div class="loader"></div>
 </main>
@@ -15,6 +16,13 @@
         justify-content : center;
         align-items     : center;
         flex-direction  : column;
+
+        position        : absolute;
+        top             : 0;
+        left            : 0;
+
+        background      : var(--color-background);
+        z-index         : 1000;
     }
 
     .hangman-logo {
