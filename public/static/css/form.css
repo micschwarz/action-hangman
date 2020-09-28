@@ -68,6 +68,8 @@
     flex-direction : column;
 
     position       : relative;
+    box-shadow     : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+    border-radius  : .5rem;
 }
 
 .form-2.form-2--required .form-2-label:after {
@@ -83,14 +85,13 @@
     border-radius : .5rem;
     background    : var(--color-background);
     padding       : 2rem 1rem 1rem;
-    box-shadow    : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
     color         : var(--color-text);
     font-size     : 1.1em;
 
     transition    : background-color .1s ease-in-out;
 }
 
-.form-2-input:not(:disabled):hover {
+.form-2-input:not(:disabled):not(:focus):hover {
     background : var(--color-background-lighten);
 }
 
