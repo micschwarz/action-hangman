@@ -100,13 +100,20 @@
     align-items         : center;
 }
 
-.btn-2:hover {
+.btn-2:not(:disabled):hover {
     transform : scale(1.03) translateY(-.05rem);
 }
 
 .btn-2:active {
     transform  : scale(0.97) translateY(.05rem);
     background : var(--color-btn--active);
+}
+
+.btn-2:disabled {
+    background : var(--color-btn--active);
+    box-shadow : 0 .075rem 1rem rgba(0, 0, 0, .3);
+    color      : var(--color-text-translucent);
+    cursor     : not-allowed;
 }
 
 .btn-2 .btn-2-icon {
@@ -116,4 +123,9 @@
 .btn-2.btn-2--red {
     --color-btn         : var(--red);
     --color-btn--active : var(--red-darken);
+}
+
+.btn-2.btn-2--green {
+    --color-btn         : var(--green);
+    --color-btn--active : var(--green-darken);
 }
