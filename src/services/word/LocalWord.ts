@@ -1,4 +1,5 @@
 import type { Word } from "./Word";
+import LoaderPopup from '../../Components/Popups/LoaderPopup.svelte';
 
 export class LocalWord implements Word {
     private readonly data = 'https://raw.githubusercontent.com/micschwarz-data/German-English-JSON-Dictionary/master/english_german.json';
@@ -18,5 +19,7 @@ export class LocalWord implements Word {
         });
     }
 
-
+    getAwaitPopup(): any {
+        return LoaderPopup;
+    }
 }

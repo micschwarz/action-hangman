@@ -1,7 +1,8 @@
 <script>
-    import Logo         from '../Components/Logo.svelte';
-    import Icon         from '../Components/Icon.svelte';
-    import { navigate } from "svelte-routing";
+    import Logo               from '../Components/Logo.svelte';
+    import Icon               from '../Components/Icon.svelte';
+    import { GameType }       from '../utils/Game';
+    import { navigate, Link } from "svelte-routing";
 
     export let user;
     let displayName = user.getDisplayName();
@@ -18,9 +19,13 @@
         </div>
     {/if}
     <nav class="navigation">
-        <button class="btn" on:click={() => navigate('/game')}>
+        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL})}>
             <span class="btn-media"><Icon name="play"/></span>
             Einzelspieler
+        </button>
+        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER})}>
+            <span class="btn-media"><Icon name="play"/></span>
+            Lokaler Multiplayer
         </button>
         <button class="btn btn--green" on:click={() => navigate('/profile')}>
             <span class="btn-media"><Icon name="user"/></span>

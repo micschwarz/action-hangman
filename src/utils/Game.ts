@@ -7,6 +7,12 @@ import { actionsStore } from '../stores/actions';
 import { get } from 'svelte/store';
 import type { Word } from "../services/word/Word";
 import type { Action } from "./Actions/Action";
+import { LocalMultiplayerWord } from "../services/word/LocalMultiplayerWord";
+
+export enum GameType {
+    LOCAL             = 0,
+    LOCAL_MULTIPLAYER = 1,
+}
 
 export class Game {
 
@@ -16,13 +22,28 @@ export class Game {
     private readonly _roundsStore = roundsStore;
     private readonly _stateStore = stateStore;
     private readonly _actionsStore = actionsStore;
+    private readonly _wordService;
     private _actionCallbacks: ((action: Action) => void)[] = [];
 
     /**
      * Creates game.
      */
-    static start(): Game {
-        return new Game(new LocalWord());
+    static start(gameType: GameType = GameType.LOCAL): Game {
+        let wordService;
+
+        switch (gameType) {
+            case GameType.LOCAL:
+                wordService = new LocalWord();
+                break;
+            case GameType.LOCAL_MULTIPLAYER:
+                wordService = new LocalMultiplayerWord();
+                break;
+            default:
+                wordService = new LocalWord();
+                break;
+        }
+
+        return new Game(wordService);
     }
 
     /**
@@ -36,7 +57,8 @@ export class Game {
         actionsStore.reset();
         wordStoreMaster.set(""); // Loading
 
-        wordService.fetch()
+        this._wordService = wordService;
+        this._wordService.fetch()
             .then(word => {
                 wordStoreMaster.set(word)
             })
@@ -45,28 +67,60 @@ export class Game {
             });
     }
 
+    /**
+     * Get letters store.
+     */
     getLettersStore() {
         return this._lettersStore;
     };
 
+    /**
+     * Get word store.
+     */
     getWordStore() {
         return this._wordStore;
     };
 
+    /**
+     * Get master word store.
+     */
     getWordMasterStore() {
         return this._wordStoreMaster;
     };
 
+    /**
+     * Get state store.
+     */
     getStateStore() {
         return this._stateStore;
     };
 
+    /**
+     * Get rounds store.
+     */
     getRoundsStore() {
         return this._roundsStore;
     };
 
+    /**
+     * Get actions store.
+     */
     getActionsStore() {
         return this._actionsStore;
+    };
+
+    /**
+     * Get Popup from word service.
+     */
+    getWordServicePopup() {
+        return this._wordService.getAwaitPopup();
+    };
+
+    /**
+     * Get word service.
+     */
+    getWordService() {
+        return this._wordService;
     };
 
     /**
@@ -82,6 +136,11 @@ export class Game {
         }
     };
 
+    /**
+     * Register callback triggered on action fire.
+     *
+     * @param fn
+     */
     onActionFire(fn: (action: Action) => void) {
         this._actionCallbacks.push(fn)
     };

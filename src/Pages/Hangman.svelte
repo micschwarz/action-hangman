@@ -1,17 +1,19 @@
 <script lang="ts">
-    import { Game }                  from '../utils/Game';
-    import { STATE_LOSE, STATE_WIN } from '../stores/state';
-    import { STATE_LOADING }         from '../stores/state';
-    import LetterKeyboard            from '../Components/Hangman/LetterKeyboard.svelte';
-    import Word                      from '../Components/Hangman/Word.svelte';
-    import Rounds                    from '../Components/Hangman/Rounds.svelte';
-    import WinPopup                  from '../Components/Popups/WinPopup.svelte';
-    import LosePopup                 from '../Components/Popups/LosePopup.svelte';
-    import LoaderPopup               from '../Components/Popups/LoaderPopup.svelte';
-    import Actions                   from '../Components/Hangman/Actions.svelte';
-    import ActionSnackbar            from '../Components/Snackbars/ActionSnackbar.svelte';
+    import { Game, GameType }                       from '../utils/Game';
+    import { STATE_LOSE, STATE_WIN, STATE_LOADING } from '../stores/state';
+    import LetterKeyboard                           from '../Components/Hangman/LetterKeyboard.svelte';
+    import Word                                     from '../Components/Hangman/Word.svelte';
+    import Rounds                                   from '../Components/Hangman/Rounds.svelte';
+    import WinPopup                                 from '../Components/Popups/WinPopup.svelte';
+    import LosePopup                                from '../Components/Popups/LosePopup.svelte';
+    import LoaderPopup                              from '../Components/Popups/LoaderPopup.svelte';
+    import Actions                                  from '../Components/Hangman/Actions.svelte';
+    import ActionSnackbar                           from '../Components/Snackbars/ActionSnackbar.svelte';
 
-    let game = Game.start();
+    export let location;
+    let gameType = parseInt(location.state[0]);
+
+    let game = Game.start(gameType);
 
     const stateStore = game.getStateStore();
     const lettersStore = game.getLettersStore();
@@ -19,6 +21,7 @@
     const roundsStore = game.getRoundsStore();
     const wordMasterStore = game.getWordMasterStore();
     const wordStore = game.getWordStore();
+    const wordFetchPopup = game.getWordServicePopup();
 
     let currentAction = undefined;
 
@@ -30,7 +33,7 @@
     }
 
     const restartGame = () => {
-        game = Game.start();
+        game = Game.start(gameType);
         game.onActionFire(setCurrentAction);
     }
 
@@ -57,9 +60,7 @@
         word={$wordMasterStore}
 />
 
-<LoaderPopup
-        show={$stateStore === STATE_LOADING}
-/>
+<svelte:component this={wordFetchPopup} show={$stateStore === STATE_LOADING} {game}/>
 
 <section>
     <header>
