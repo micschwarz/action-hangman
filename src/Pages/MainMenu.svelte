@@ -115,6 +115,7 @@
 
         position                    : relative;
         z-index                     : 1;
+        will-change                 : transform;
 
         margin-right                : 1rem;
 
