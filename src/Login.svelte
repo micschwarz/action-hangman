@@ -1,5 +1,5 @@
 <script lang="ts">
-    import firebase from "firebase/app";
+    export let user;
 
     let email = "";
     let password = "";
@@ -21,8 +21,7 @@
         isLoading = true;
         removeErrors();
 
-        firebase.auth()
-            .signInWithEmailAndPassword(email, password)
+        user.signIn(email, password)
             .catch((error) => {
                 switch (error.code) {
                     case 'auth/user-not-found':
