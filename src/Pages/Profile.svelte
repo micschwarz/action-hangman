@@ -24,7 +24,7 @@
 </script>
 
 <main class="profile">
-    <h2>Profile</h2>
+    <h2>Profil</h2>
 
     <div class="user-profile">
         <div class="card">
