@@ -2,7 +2,7 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "scripts": {
-    "build": "parcel build public/index.html public/offline.html --no-source-maps",
+    "build": "parcel build public/index.html --no-source-maps",
     "dev": "parcel public/index.html --open"
   },
   "devDependencies": {

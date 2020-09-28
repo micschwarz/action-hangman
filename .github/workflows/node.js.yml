@@ -45,3 +45,4 @@ jobs:
           npm install
           rm -rf ./dist
           npm run-script build
+          cp ./public/robots.txt ./dist/robots.txt
