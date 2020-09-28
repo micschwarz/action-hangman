@@ -19,11 +19,11 @@
         </div>
     {/if}
     <nav class="navigation">
-        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL})}>
+        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL.toString()})}>
             <span class="btn-media"><Icon name="play"/></span>
             Einzelspieler
         </button>
-        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER})}>
+        <button class="btn" on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER.toString()})}>
             <span class="btn-media"><Icon name="play"/></span>
             Lokaler Multiplayer
         </button>
