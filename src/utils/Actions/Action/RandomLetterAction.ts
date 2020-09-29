@@ -1,7 +1,7 @@
-import { Action } from './Action';
-import { lettersStore } from '../../stores/letters';
-import { get } from 'svelte/store';
-import type { Letter } from "../Alphabet/Letter";
+import { Action }       from './Action';
+import { lettersStore } from '../../../stores/letters';
+import { get }          from 'svelte/store';
+import type { Letter }  from "../../Alphabet/Letter";
 
 export class RandomLetterAction extends Action {
 

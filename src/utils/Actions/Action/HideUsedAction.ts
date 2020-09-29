@@ -1,5 +1,5 @@
-import { Action } from './Action';
-import { lettersStore } from '../../stores/letters';
+import { Action }       from './Action';
+import { lettersStore } from '../../../stores/letters';
 
 export class HideUsedAction extends Action {
     getIcon(): string {

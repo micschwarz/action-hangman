@@ -6,8 +6,8 @@ const createActionsStore = () => {
 
     return {
         subscribe,
-        reset : () => {
-            set(Actions.get());
+        set   : (actions) => {
+            set(actions);
         },
         update: () => {
             update((actions) => Actions.updateAll(actions));

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Game, GameType }                       from '../utils/Game';
+    import { Game, GameTypeIdentifier }             from '../utils/Game';
     import { STATE_LOSE, STATE_WIN, STATE_LOADING } from '../stores/state';
     import LetterKeyboard                           from '../Components/Hangman/LetterKeyboard.svelte';
     import Word                                     from '../Components/Hangman/Word.svelte';
@@ -13,8 +13,7 @@
 
     export let location;
     export let user;
-    let gameType = parseInt(location.state[0]);
-
+    let gameType = location.state.gameTypeId;
     let game = Game.start(gameType);
 
     const stateStore = game.getStateStore();
@@ -46,11 +45,11 @@
     game.onActionFire(setCurrentAction);
 
     const unsubStatStore = stateStore.subscribe((state) => {
-        if (state === STATE_WIN && gameType === GameType.LOCAL) {
+        if (state === STATE_WIN && game.getGameType().countStats) {
             user.getStatisticsService().addGameWon();
         }
 
-        if (state === STATE_LOSE && gameType === GameType.LOCAL) {
+        if (state === STATE_LOSE && game.getGameType().countStats) {
             user.getStatisticsService().addGameLost();
         }
     });

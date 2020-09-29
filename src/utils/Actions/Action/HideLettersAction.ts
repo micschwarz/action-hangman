@@ -1,6 +1,6 @@
-import { lettersStore } from '../../stores/letters';
-import { Action } from './Action';
-import { Shuffler } from "../Shuffler";
+import { lettersStore } from '../../../stores/letters';
+import { Action }       from './Action';
+import { Shuffler }     from "../../Shuffler";
 
 export class HideLettersAction extends Action {
     getIcon(): string {

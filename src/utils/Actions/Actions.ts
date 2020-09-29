@@ -1,12 +1,10 @@
-import { HideLettersAction } from './HideLettersAction';
-import { HideUsedAction } from './HideUsedAction';
-import { RandomLetterAction } from './RandomLetterAction';
-import type { Action } from "./Action";
+import type { Action } from "./Action/Action";
 
-export class Actions {
-    static get(): Action[] {
-        return [new HideLettersAction(), new HideUsedAction(), new RandomLetterAction()];
-    }
+export abstract class Actions {
+    /**
+     * Create all actions.
+     */
+    abstract get(): Action[];
 
     /**
      * Execute action update on all given actions.

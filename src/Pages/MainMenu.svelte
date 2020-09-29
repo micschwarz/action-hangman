@@ -1,14 +1,23 @@
 <script>
     import Logo         from '../Components/Logo.svelte';
     import Icon         from '../Components/Icon.svelte';
-    import { GameType } from '../utils/Game';
-    import { navigate } from "svelte-routing";
+    import { Game }     from '../utils/Game';
+    import { navigate } from 'svelte-routing';
 
     export let user;
     let displayName = user.getDisplayName();
 
     const logout = () => {
         user.logout();
+    }
+
+    const start = (gameTypeId) => {
+        navigate(
+            '/game',
+            {
+                state: { gameTypeId }
+            }
+        )
     }
 </script>
 
@@ -25,27 +34,18 @@
     <nav class="navigation">
         <div class="game-modes-scroll">
             <div class="game-modes">
-                <div class="card"
-                     on:click={() => navigate('/game', {state: GameType.LOCAL.toString()})}>
-                    <div class="icon">
-                        <Icon name="user"/>
+                {#each Game.getGameTypes() as gameType (gameType.identifier)}
+                    <div class={`card card--${gameType.color}`}
+                         on:click={() => start(gameType.identifier)}>
+                        <div class="icon">
+                            <Icon name={gameType.icon}/>
+                        </div>
+                        <h3 class="title">{gameType.name}</h3>
+                        <div class="description">
+                            {gameType.description}
+                        </div>
                     </div>
-                    <h3 class="title">Einzelspieler</h3>
-                    <div class="description">
-                        Spiele alleine
-                    </div>
-                </div>
-
-                <div class="card card--green"
-                     on:click={() => navigate('/game', {state: GameType.LOCAL_MULTIPLAYER.toString()})}>
-                    <div class="icon">
-                        <Icon name="users-alt"/>
-                    </div>
-                    <h3 class="title">Multiplayer Lokal</h3>
-                    <div class="description">
-                        Spiele zu zweit an einem Gerät
-                    </div>
-                </div>
+                {/each}
             </div>
         </div>
         <div class="actions">
@@ -136,6 +136,10 @@
 
     .card.card--green {
         background : var(--green);
+    }
+
+    .card.card--red {
+        background : var(--red);
     }
 
     .card .icon {
