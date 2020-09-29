@@ -14,7 +14,9 @@
     $: hasMaxLength = word.length <= 6;
 
     let hasValidAlphabet;
-    $: hasValidAlphabet = /[a-z]/i.test(word);
+    $: hasValidAlphabet = /^[a-z]*$/i.test(word);
+
+    $: console.log(hasValidAlphabet);
 
     let isValid;
     $: isValid = hasMinLength && hasMaxLength && hasValidAlphabet;
@@ -35,7 +37,7 @@
             <label class="form-2 form-2--required" class:form-2--has-error={!isValid && isNotEmpty} for="word">
                 <span class="form-2-label">Wort</span>
                 <input class="form-2-input" type="text" name="word" id="word"
-                       bind:value={word} maxlength="6" minlength="2" pattern="[A-Za-z]" required>
+                       bind:value={word} maxlength="6" minlength="2" pattern="^[A-Za-z]*$" required>
                 <span class="form-2-error">
                     {#if !hasMaxLength}
                         Die Maximallänge beträgt 6
