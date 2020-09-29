@@ -1,4 +1,5 @@
 import firebase from "firebase/app";
+import { StatisticsService } from "../statistics/StatisticsService";
 
 export class User {
     private state = UserState.LOGGING_IN;
@@ -7,6 +8,7 @@ export class User {
     private uid: string | null;
     private photoURL: string | null;
     private displayName: string | null;
+    private statisticsService: StatisticsService | null = null;
 
     login(onChange: (state: UserState, user: firebase.User | null) => void) {
         firebase.auth().onAuthStateChanged((user) => {
@@ -18,6 +20,7 @@ export class User {
                 this.uid = user.uid;
                 this.photoURL = user.photoURL;
                 this.displayName = user.displayName;
+                this.statisticsService = new StatisticsService(user.uid);
             }
 
             onChange(this.state, user);
@@ -58,12 +61,20 @@ export class User {
         return this.email;
     }
 
+    getUid(): string | null {
+        return this.uid;
+    }
+
     logout() {
         this.state = UserState.LOGGING_IN;
         firebase.auth()
             .signOut()
             .then(() => this.state = UserState.LOGGED_OUT)
             .catch(() => this.state = UserState.LOGGED_OUT);
+    }
+
+    getStatisticsService(): StatisticsService {
+        return this.statisticsService;
     }
 }
 

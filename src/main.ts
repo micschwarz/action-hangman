@@ -1,6 +1,7 @@
 import App from './App.svelte';
 import firebase from "firebase/app";
 import "firebase/auth";
+import "firebase/firestore";
 
 /*if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')

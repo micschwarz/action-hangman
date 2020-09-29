@@ -9,8 +9,10 @@
     import LoaderPopup                              from '../Components/Popups/LoaderPopup.svelte';
     import Actions                                  from '../Components/Hangman/Actions.svelte';
     import ActionSnackbar                           from '../Components/Snackbars/ActionSnackbar.svelte';
+    import { onDestroy }                            from 'svelte';
 
     export let location;
+    export let user;
     let gameType = parseInt(location.state[0]);
 
     let game = Game.start(gameType);
@@ -42,6 +44,18 @@
     }
 
     game.onActionFire(setCurrentAction);
+
+    const unsubStatStore = stateStore.subscribe((state) => {
+        if (state === STATE_WIN && gameType === GameType.LOCAL) {
+            user.getStatisticsService().addGameWon();
+        }
+
+        if (state === STATE_LOSE && gameType === GameType.LOCAL) {
+            user.getStatisticsService().addGameLost();
+        }
+    });
+
+    onDestroy(unsubStatStore);
 </script>
 
 <ActionSnackbar show={currentAction !== undefined} action={currentAction}/>

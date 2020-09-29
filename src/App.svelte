@@ -1,11 +1,12 @@
 <script lang="ts">
-    import { Router, Route }   from "svelte-routing";
-    import Hangman             from './Pages/Hangman.svelte';
-    import Login               from './Pages/Login.svelte';
-    import Loading             from './Pages/Loading.svelte';
-    import { User, UserState } from './services/user/User';
-    import MainMenu            from './Pages/MainMenu.svelte';
-    import Profile             from './Pages/Profile.svelte';
+    import { Router, Route }     from "svelte-routing";
+    import Hangman               from './Pages/Hangman.svelte';
+    import Login                 from './Pages/Login.svelte';
+    import Loading               from './Pages/Loading.svelte';
+    import { User, UserState }   from './services/user/User';
+    import MainMenu              from './Pages/MainMenu.svelte';
+    import Profile               from './Pages/Profile.svelte';
+    import { StatisticsService } from './services/statistics/StatisticsService';
 
     const user = new User();
     let userState = user.getState();
@@ -22,7 +23,7 @@
 {:else if userState === UserState.LOGGED_IN}
     <Router>
         <Route path="/" component={MainMenu} {user}/>
-        <Route path="/game" component={Hangman}/>
+        <Route path="/game" component={Hangman} {user}/>
         <Route path="/profile" component={Profile} {user}/>
     </Router>
 {/if}

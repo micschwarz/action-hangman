@@ -14,6 +14,8 @@
 
     let profileName = user.getDisplayName() || user.getEmail();
 
+    let statisticsService = user.getStatisticsService();
+
     const update = () => {
         isLoading = true;
 
@@ -32,8 +34,21 @@
                 <Icon name="trophy"/>
             </div>
             <h3 class="title">{profileName}</h3>
-            <div class="description">
-                Hier werden zukünftig deine Statistiken stehen!
+            <div class="statistics">
+                {#await statisticsService.get()}
+                    <div class="loader loader--sm loader--white"></div>
+                {:then statistics}
+                    {#if statistics.gamesPlayed <= 0}
+                        <span class="no-statistics">Gewonnen: 0 Spiele gespielt</span>
+                    {:else}
+                        Gewonnen:
+                        <span class="games-ratio">{(statistics.gamesWon / statistics.gamesPlayed * 100).toFixed(1)}%
+                        </span>
+                        ({statistics.gamesWon} aus {statistics.gamesPlayed} Spielen)
+                    {/if}
+                {:catch name}
+                    Fehler
+                {/await}
             </div>
         </div>
     </div>
@@ -122,10 +137,18 @@
         text-overflow : ellipsis;
     }
 
-    .card .description {
+    .card .statistics {
         margin-top : .3rem;
         font-size  : 1.1em;
-        color      : var(--color-text-translucent);
+        color      : var(--color-text-translucent-light);
+    }
+
+    .card .statistics .no-statistics {
+        color : var(--color-text-translucent);
+    }
+
+    .card .statistics .games-ratio {
+        font-weight : bold;
     }
 
     .user-profile-form {
