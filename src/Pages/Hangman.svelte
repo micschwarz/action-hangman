@@ -1,28 +1,30 @@
 <script lang="ts">
-    import { Game, GameTypeIdentifier }             from '../utils/Game';
-    import { STATE_LOSE, STATE_WIN, STATE_LOADING } from '../stores/state';
-    import LetterKeyboard                           from '../Components/Hangman/LetterKeyboard.svelte';
-    import Word                                     from '../Components/Hangman/Word.svelte';
-    import Rounds                                   from '../Components/Hangman/Rounds.svelte';
-    import WinPopup                                 from '../Components/Popups/WinPopup.svelte';
-    import LosePopup                                from '../Components/Popups/LosePopup.svelte';
-    import LoaderPopup                              from '../Components/Popups/LoaderPopup.svelte';
-    import Actions                                  from '../Components/Hangman/Actions.svelte';
-    import ActionSnackbar                           from '../Components/Snackbars/ActionSnackbar.svelte';
-    import { onDestroy }                            from 'svelte';
+    import { Game, GameTypeIdentifier }                            from '../utils/Game';
+    import { STATE_LOSE, STATE_WIN, STATE_LOADING, STATE_PLAYING } from '../stores/state';
+    import LetterKeyboard                                          from '../Components/Hangman/LetterKeyboard.svelte';
+    import Word                                                    from '../Components/Hangman/Word.svelte';
+    import Rounds                                                  from '../Components/Hangman/Rounds.svelte';
+    import WinPopup                                                from '../Components/Popups/WinPopup.svelte';
+    import LosePopup                                               from '../Components/Popups/LosePopup.svelte';
+    import LoaderPopup                                             from '../Components/Popups/LoaderPopup.svelte';
+    import Actions                                                 from '../Components/Hangman/Actions.svelte';
+    import ActionSnackbar                                          from '../Components/Snackbars/ActionSnackbar.svelte';
+    import { getContext, onDestroy }                               from 'svelte';
+    import OneVsOneResultPopup
+                                                                   from '../Components/Popups/OneVsOneResultPopup.svelte';
 
     export let location;
-    export let user;
-    let gameType = location.state.gameTypeId;
-    let game = Game.start(gameType);
+    let user     = getContext('user');
+    let gameType = location.state?.gameTypeId;
+    let game     = Game.start(gameType);
 
-    const stateStore = game.getStateStore();
-    const lettersStore = game.getLettersStore();
-    const actionsStore = game.getActionsStore();
-    const roundsStore = game.getRoundsStore();
+    const stateStore      = game.getStateStore();
+    const lettersStore    = game.getLettersStore();
+    const actionsStore    = game.getActionsStore();
+    const roundsStore     = game.getRoundsStore();
     const wordMasterStore = game.getWordMasterStore();
-    const wordStore = game.getWordStore();
-    const wordFetchPopup = game.getWordServicePopup();
+    const wordStore       = game.getWordStore();
+    const wordFetchPopup  = game.getWordServicePopup();
 
     let currentAction = undefined;
 
@@ -30,17 +32,17 @@
         currentAction = action;
         setTimeout(() => {
             currentAction = undefined;
-        }, 2000)
-    }
+        }, 2000);
+    };
 
     const restartGame = () => {
         game = Game.start(gameType);
         game.onActionFire(setCurrentAction);
-    }
+    };
 
     const useLetterHandler = (event) => {
         game.useLetter(event.detail.char);
-    }
+    };
 
     game.onActionFire(setCurrentAction);
 
@@ -59,23 +61,34 @@
 
 <ActionSnackbar show={currentAction !== undefined} action={currentAction}/>
 
-<WinPopup
-        on:restart={restartGame}
-        show={$stateStore === STATE_WIN}
-        rounds={$roundsStore}
-        word={$wordMasterStore}
-        color="var(--green-darken)"
-        backgroundIcon="check-circle"
-/>
+{#if !game.isMultiplayerGame()}
+    <WinPopup
+            on:restart={restartGame}
+            show={$stateStore === STATE_WIN}
+            rounds={$roundsStore}
+            word={$wordMasterStore}
+            color="var(--green-darken)"
+            backgroundIcon="check-circle"
+    />
 
-<LosePopup
-        on:restart={restartGame}
-        show={$stateStore === STATE_LOSE}
-        roundsMax={roundsStore.getMax()}
-        word={$wordMasterStore}
-        color="var(--red-darken)"
-        backgroundIcon="times-circle"
-/>
+    <LosePopup
+            on:restart={restartGame}
+            show={$stateStore === STATE_LOSE}
+            roundsMax={roundsStore.getMax()}
+            word={$wordMasterStore}
+            color="var(--red-darken)"
+            backgroundIcon="times-circle"
+    />
+{:else}
+    <OneVsOneResultPopup
+            show={($stateStore === STATE_WIN) || ($stateStore === STATE_LOSE)}
+            rounds={$roundsStore}
+            roundsMax={roundsStore.getMax()}
+            word={$wordMasterStore}
+            status={$stateStore}
+            game={game}
+    />
+{/if}
 
 <svelte:component this={wordFetchPopup} show={$stateStore === STATE_LOADING} game={game}/>
 

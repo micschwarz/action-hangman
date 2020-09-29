@@ -1,14 +1,15 @@
 <script lang="ts">
-    import Icon         from '../Components/Icon.svelte';
-    import { navigate } from 'svelte-routing';
+    import Icon           from '../Components/Icon.svelte';
+    import { navigate }   from 'svelte-routing';
+    import { getContext } from 'svelte';
 
-    export let user;
+    let user = getContext('user');
 
     let displayName = user.getDisplayName();
-    let email = user.getEmail();
+    let email       = user.getEmail();
 
     let isValid;
-    $: isValid = email !== "";
+    $: isValid = email !== '';
 
     let isLoading = false;
 

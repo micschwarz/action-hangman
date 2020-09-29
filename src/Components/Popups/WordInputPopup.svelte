@@ -16,8 +16,6 @@
     let hasValidAlphabet;
     $: hasValidAlphabet = /^[a-z]*$/i.test(word);
 
-    $: console.log(hasValidAlphabet);
-
     let isValid;
     $: isValid = hasMinLength && hasMaxLength && hasValidAlphabet;
 

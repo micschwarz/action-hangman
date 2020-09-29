@@ -1,15 +1,16 @@
 <script>
-    import Logo         from '../Components/Logo.svelte';
-    import Icon         from '../Components/Icon.svelte';
-    import { Game }     from '../utils/Game';
-    import { navigate } from 'svelte-routing';
+    import Logo           from '../Components/Logo.svelte';
+    import Icon           from '../Components/Icon.svelte';
+    import { Game }       from '../utils/Game';
+    import { navigate }   from 'svelte-routing';
+    import { getContext } from 'svelte';
 
-    export let user;
+    let user        = getContext('user');
     let displayName = user.getDisplayName();
 
     const logout = () => {
         user.logout();
-    }
+    };
 
     const start = (gameTypeId) => {
         navigate(
@@ -140,6 +141,10 @@
 
     .card.card--red {
         background : var(--red);
+    }
+
+    .card.card--blue {
+        background : var(--blue);
     }
 
     .card .icon {
