@@ -65,6 +65,8 @@
         show={$stateStore === STATE_WIN}
         rounds={$roundsStore}
         word={$wordMasterStore}
+        color="var(--green-darken)"
+        backgroundIcon="check-circle"
 />
 
 <LosePopup
@@ -72,9 +74,11 @@
         show={$stateStore === STATE_LOSE}
         roundsMax={roundsStore.getMax()}
         word={$wordMasterStore}
+        color="var(--red-darken)"
+        backgroundIcon="times-circle"
 />
 
-<svelte:component this={wordFetchPopup} show={$stateStore === STATE_LOADING} {game}/>
+<svelte:component this={wordFetchPopup} show={$stateStore === STATE_LOADING} game={game}/>
 
 <section>
     <header>

@@ -18,6 +18,7 @@
     --color-text                   : #f4f4f4;
     --color-text-darken            : #dddddd;
     --color-text-translucent-light : rgba(244, 244, 244, .95);
-    --color-text-translucent       : rgba(244, 244, 244, .5);
-    --color-text-translucent-2     : rgba(244, 244, 244, .3);
+    --color-text-translucent-light-2 : rgba(244, 244, 244, .8);
+    --color-text-translucent : rgba(244, 244, 244, .5);
+    --color-text-translucent-2 : rgba(244, 244, 244, .3);
 }

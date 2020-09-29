@@ -1,12 +1,30 @@
 <script lang="ts">
-    import { fade } from 'svelte/transition';
+    import { fade }                 from 'svelte/transition';
+    import { afterUpdate, onMount } from 'svelte';
+    import Icon                     from '../Icon.svelte';
 
     export let show = false;
+    export let color = 'var(--color-background)'
+    export let backgroundIcon = null;
+
+    let popup;
+
+    afterUpdate(() => {
+        if (popup) {
+            popup.style.setProperty('--color-popup', color)
+        }
+    })
+
 </script>
 
 {#if show}
-    <div class="popup" transition:fade|local={{y: 100, duration: 50}}>
+    <div class="popup" transition:fade|local={{y: 100, duration: 50}} bind:this={popup}>
         <div class="inner">
+            {#if backgroundIcon}
+                <div class="background-icon">
+                    <Icon name={backgroundIcon}/>
+                </div>
+            {/if}
             <slot/>
         </div>
     </div>
@@ -14,36 +32,44 @@
 
 <style>
     .popup {
-        position        : absolute;
-        top             : 0;
-        left            : 0;
+        position   : fixed;
 
-        z-index         : var(--z-index-popup);
+        width      : 100vw;
+        height     : 100vh;
+        height     : --webkit-fill-available;
 
-        display         : flex;
-        align-items     : center;
-        justify-content : center;
+        background : rgba(0, 0, 0, .5);
+        padding    : 1rem;
 
-        width           : 100vw;
-        height          : 100vh;
-        height          : -webkit-fill-available;
-
-        overflow        : hidden;
-        padding         : 1rem;
-        background      : rgba(10, 10, 15, .5);
+        z-index    : var(--z-index-popup);
     }
 
-    .inner {
-        min-width     : 20rem;
-        max-width     : max(40rem, 100vw);
-        min-height    : 10rem;
-        max-height    : max(60rem, 100vh);
+    .popup .inner {
+        background    : var(--color-popup);
 
-        padding       : 1rem;
+        min-width     : 5rem;
+        max-width     : min(40rem, calc(100vw - 2rem));
+        min-height    : 5rem;
+        max-height    : 100vh;
 
-        background    : var(--color-background-lighten);
-        border        : 1px solid var(--color-background-border);
-        border-radius : 5px;
-        box-shadow    : 0 .4rem .8rem rgba(0, 0, 0, .2);
+        border-radius : .5rem;
+        box-shadow    : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+
+        position      : absolute;
+        top           : 50%;
+        left          : 50%;
+
+        transform     : translate(-50%, -50%);
+
+        overflow      : hidden;
+    }
+
+    .popup .inner .background-icon {
+        position  : absolute;
+        bottom    : -3rem;
+        right     : -3rem;
+        font-size : 10rem;
+        color     : rgba(255, 255, 255, .1);
+        z-index   : -1;
     }
 </style>

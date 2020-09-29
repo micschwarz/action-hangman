@@ -4,21 +4,16 @@
 
 <Popup {...$$restProps}>
     <div class="popup-content">
-        <h2>Lädt...</h2>
         <div class="loader"></div>
     </div>
 </Popup>
 
 <style>
     .popup-content {
+        padding         : 1.5rem;
+
         display         : flex;
-        flex-direction  : column;
         justify-content : center;
         align-items     : center;
-    }
-
-    h2,
-    .message {
-        margin : 0 0 1rem;
     }
 </style>

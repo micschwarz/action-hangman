@@ -89,6 +89,7 @@
     background          : var(--color-btn);
     color               : var(--color-text);
     font-size           : 1.1em;
+    height              : 3.35rem;
     font-weight         : bold;
 
     outline             : none;
@@ -128,4 +129,29 @@
 .btn-2.btn-2--green {
     --color-btn         : var(--green);
     --color-btn--active : var(--green-darken);
+}
+
+.btn-2.btn-2--flat {
+    box-shadow : none;
+}
+
+.btn-2.btn-2--square {
+    width : 3.35rem;
+}
+
+.btn-2.btn-2--square .btn-2-icon {
+    margin-right : 0;
+}
+
+.btn-2.btn-2--flat:not(:disabled):hover {
+    transform : scale(1.03);
+}
+
+.btn-2.btn-2--flat:active {
+    transform : scale(0.97);
+}
+
+.btn-2.btn-2--translucent {
+    --color-btn         : rgba(255, 255, 255, .1);
+    --color-btn--active : rgba(255, 255, 255, .2);
 }
