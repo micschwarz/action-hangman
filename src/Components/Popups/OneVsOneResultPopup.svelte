@@ -57,8 +57,8 @@
         navigator.share({
             title: lost ? 'Ich habe im 1v1 verloren 😔' : 'Ich habe im 1v1 gewonnen! 😃',
             text : lost
-                ? `Ich habe das Wort ${ word } nicht ${ rounds } herausgefunden! Kannst du mich schlagen?`
-                : `Ich habe das Wort ${ word } nicht in ${ roundsMax } herausgefunden! Kannst du es besser?`,
+                ? `Ich habe das Wort ${ word } nicht ${ rounds } Runden herausgefunden! Kannst du mich schlagen?`
+                : `Ich habe das Wort ${ word } nicht in ${ roundsMax } Runden herausgefunden! Kannst du es besser?`,
             url  : window.location.origin,
         });
     };

@@ -16,7 +16,7 @@
     const share = () => {
         navigator.share({
             title: 'Ich habe verloren 😔',
-            text : `Leider habe ich das Wort ${ word } nicht in ${ roundsMax } herausgefunden. Kannst du es besser?`,
+            text : `Leider habe ich das Wort ${ word } nicht in ${ roundsMax } Runden herausgefunden. Kannst du es besser?`,
             url  : window.location.origin,
         });
     };
