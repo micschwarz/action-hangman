@@ -93,7 +93,9 @@ export class OneVsOneWord implements MultiplayerWord {
                     }
 
                     const gameData = documentRef.data();
-                    if (gameData.player2 !== null) {
+
+                    // Rejoin game when already in game
+                    if (gameData.player2 !== null && gameData.player2 !== user.getUid()) {
                         reject('GAME_ALREADY_FULL');
                         return;
                     }
@@ -103,8 +105,7 @@ export class OneVsOneWord implements MultiplayerWord {
 
                     // Rejoin game
                     if (gameData.player1 === user.getUid()) {
-                        this.resolve(gameData.word);
-                        resolve();
+                        this.listenForJoin(game);
                         return;
                     }
 
