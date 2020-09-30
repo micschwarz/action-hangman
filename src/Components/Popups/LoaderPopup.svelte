@@ -1,10 +1,11 @@
 <script lang="ts">
-    import Popup from '../Helper/Popup.svelte';
+    import Popup  from '../Helper/Popup.svelte';
+    import Loader from '../Loader/Loader.svelte';
 </script>
 
 <Popup {...$$restProps}>
     <div class="popup-content">
-        <div class="loader"></div>
+        <Loader/>
     </div>
 </Popup>
 

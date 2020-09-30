@@ -1,23 +1,24 @@
 <script lang="ts">
-    import Icon from '../Components/Icon.svelte';
+    import Icon   from '../Components/Icon.svelte';
+    import Loader from '../Components/Loader/Loader.svelte';
 
     export let user;
 
-    let email = "";
-    let password = "";
+    let email    = '';
+    let password = '';
 
     let isValid;
-    $: isValid = email !== "" && password !== "";
+    $: isValid = email !== '' && password !== '';
 
-    let errorEmail = false;
+    let errorEmail    = false;
     let errorPassword = false;
 
     let isLoading = false;
 
     const removeErrors = () => {
-        errorEmail = false;
+        errorEmail    = false;
         errorPassword = false;
-    }
+    };
 
     const login = () => {
         isLoading = true;
@@ -36,7 +37,7 @@
                 }
             })
             .finally(() => isLoading = false);
-    }
+    };
 
 </script>
 
@@ -64,7 +65,7 @@
         <div class="actions">
             <button class="btn-2" type="submit" on:click|preventDefault={login} disabled="{!isValid || isLoading}">
                 {#if isLoading}
-                    <span class="loader loader--sm loader--white"></span>
+                    <Loader small white/>
                 {:else}
                     <span class="btn-2-icon"><Icon name="sign-in-alt"/></span>
                     Anmelden
@@ -72,31 +73,6 @@
             </button>
         </div>
     </form>
-    <!-- <form class="form-login">
-         <label class="form" class:form&#45;&#45;has-error={errorEmail} for="email">
-             <span class="form-label">E-Mail</span>
-             <input class="form-input" type="email" name="email" id="email"
-                    placeholder="user@micschwarz.games"
-                    bind:value={email} on:input={removeErrors}>
-             <span class="form-error">Nutzer nicht korrekt</span>
-         </label>
-
-         <label class="form" class:form&#45;&#45;has-error={errorPassword} for="password">
-             <span class="form-label">Passwort</span>
-             <input class="form-input" type="password" name="password" id="password"
-                    placeholder="*********"
-                    bind:value={password} on:input={removeErrors}>
-             <span class="form-error">Passwort nicht korrekt</span>
-         </label>
-
-         <button class="btn" type="submit" on:click|preventDefault={login} disabled="{!isValid || isLoading}">
-             {#if isLoading}
-                 <span class="loader loader&#45;&#45;sm loader&#45;&#45;white"></span>
-             {:else}
-                 Anmelden
-             {/if}
-         </button>
-     </form>-->
 </main>
 
 

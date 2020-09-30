@@ -2,6 +2,7 @@
     import Icon           from '../Components/Icon.svelte';
     import { navigate }   from 'svelte-routing';
     import { getContext } from 'svelte';
+    import Loader         from '../Components/Loader/Loader.svelte';
 
     let user = getContext('user');
 
@@ -20,10 +21,10 @@
     const update = () => {
         isLoading = true;
 
-        user.update(email, displayName === "" ? null : displayName)
+        user.update(email, displayName === '' ? null : displayName)
             .then(() => profileName = user.getDisplayName() || user.getEmail())
             .finally(() => isLoading = false);
-    }
+    };
 </script>
 
 <main class="profile">
@@ -37,7 +38,7 @@
             <h3 class="title">{profileName}</h3>
             <div class="statistics">
                 {#await statisticsService.get()}
-                    <div class="loader loader--sm loader--white"></div>
+                    <Loader small white/>
                 {:then statistics}
                     {#if statistics.gamesPlayed <= 0}
                         <span class="no-statistics">Gewonnen: 0 Spiele gespielt</span>
@@ -70,7 +71,7 @@
             <div class="actions">
                 <button class="btn-2 btn-2--green" on:click|preventDefault={update} disabled="{!isValid || isLoading}">
                     {#if isLoading}
-                        <span class="loader loader--sm loader--white"></span>
+                        <Loader small white/>
                     {:else}
                         <span class="btn-2-icon"><Icon name="save"/></span>
                         Speichern

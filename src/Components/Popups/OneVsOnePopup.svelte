@@ -2,6 +2,7 @@
     import Popup          from '../Helper/Popup.svelte';
     import Icon           from '../Icon.svelte';
     import { getContext } from 'svelte';
+    import Loader         from '../Loader/Loader.svelte';
 
     export let game;
     let user = getContext('user');
@@ -64,7 +65,7 @@
             {#if gameCreation}
                 <div class="game-init-created">
                     {#await gameCreation}
-                        <div class="loader"></div>
+                        <Loader/>
                     {:then code}
                         <div class="code">{code}</div>
                         <div class="message">Gib diesen Code deinem Gegner!</div>
@@ -97,7 +98,7 @@
                             <button class="btn-2 btn-2--green" on:click|preventDefault={joinGame}
                                     disabled="{!isGameCodeValid || isGameJoinLoading}">
                                 {#if isGameJoinLoading}
-                                    <span class="loader loader--sm loader--white"></span>
+                                    <Loader small white/>
                                 {:else}
                                     <span class="btn-2-icon"><Icon name="play"/></span>
                                     Los!

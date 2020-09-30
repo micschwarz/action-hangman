@@ -1,10 +1,13 @@
 <script>
     import Logo     from '../Components/Logo.svelte';
     import { fade } from 'svelte/transition';
+    import Loader   from '../Components/Loader/Loader.svelte';
 </script>
 <main class="screen-loading" out:fade={{delay: 100, duration: 100}}>
     <Logo/>
-    <div class="loader"></div>
+    <div class="login-loader">
+        <Loader/>
+    </div>
 </main>
 
 <style>
@@ -30,7 +33,7 @@
         height : 8rem;
     }
 
-    .loader {
+    .login-loader {
         margin-top : .5rem;
     }
 </style>

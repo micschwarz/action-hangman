@@ -4,6 +4,7 @@
     import Icon                        from '../Icon.svelte';
     import { navigate }                from 'svelte-routing';
     import { afterUpdate, getContext } from 'svelte';
+    import Loader                      from '../Loader/Loader.svelte';
 
     export let rounds;
     export let roundsMax;
@@ -119,7 +120,7 @@
                     </div>
                     <span class="stat-value">{roundsOther}</span>
                 {:else}
-                    <div class="loader loader--white loader--sm"></div>
+                    <Loader small white/>
                 {/if}
             </div>
         </div>

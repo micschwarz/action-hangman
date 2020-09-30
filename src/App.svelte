@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { Router, Route }   from "svelte-routing";
+    import { Router, Route }   from 'svelte-routing';
     import Hangman             from './Pages/Hangman.svelte';
     import Login               from './Pages/Login.svelte';
     import Loading             from './Pages/Loading.svelte';
@@ -18,7 +18,7 @@
     });
 </script>
 
-{#if userState === UserState.LOGGING_IN}
+{#if userState === UserState.LOGGING_IN}>
     <Loading/>
 {:else if userState === UserState.LOGGED_OUT}
     <Login {user}/>
