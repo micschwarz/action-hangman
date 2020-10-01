@@ -155,7 +155,7 @@
     transform : scale(1.03);
 }
 
-.btn-2.btn-2--flat:active {
+.btn-2.btn-2--flat:not(.btn-2--no-click):not(.btn-2--inactive):active {
     transform : scale(0.97);
 }
 
