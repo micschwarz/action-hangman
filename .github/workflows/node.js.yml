@@ -43,5 +43,6 @@ jobs:
           git reset --hard
           git pull origin master
           npm install
-          rm -rf ./public/build/
+          rm -rf ./dist
           npm run-script build
+          cp ./public/robots.txt ./dist/robots.txt
