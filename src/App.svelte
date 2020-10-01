@@ -9,6 +9,8 @@
     import { onDestroy, setContext } from 'svelte';
     import PopupOutlet               from './Components/Popups/PopupOutlet.svelte';
 
+    export let config;
+
     const user    = new User();
     let userState = user.getState();
 
@@ -18,6 +20,7 @@
 
     // Set user as global context
     setContext('user', user);
+    setContext('config', config);
 </script>
 
 <PopupOutlet/>
