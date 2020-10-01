@@ -101,20 +101,28 @@
     align-items         : center;
 }
 
-.btn-2:not(:disabled):hover {
+.btn-2:not(:disabled):not(.btn-2--no-click):not(.btn-2--inactive):hover {
     transform : scale(1.03) translateY(-.05rem);
 }
 
-.btn-2:active {
+.btn-2:not(.btn-2--no-click):not(.btn-2--inactive):active {
     transform  : scale(0.97) translateY(.05rem);
     background : var(--color-btn--active);
 }
 
+.btn-2.btn-2--no-click {
+    background : var(--color-btn);
+    box-shadow : 0 .05rem .5rem rgba(0, 0, 0, .3);
+    cursor     : not-allowed;
+}
+
+.btn-2.btn-2--inactive,
 .btn-2:disabled {
     background : var(--color-btn--active);
-    box-shadow : 0 .075rem 1rem rgba(0, 0, 0, .3);
+    box-shadow : 0 .05rem .5rem rgba(0, 0, 0, .3);
     color      : var(--color-text-translucent);
     cursor     : not-allowed;
+    transform  : scale(.95);
 }
 
 .btn-2 .btn-2-icon {
@@ -143,7 +151,7 @@
     margin-right : 0;
 }
 
-.btn-2.btn-2--flat:not(:disabled):hover {
+.btn-2.btn-2--flat:not(:disabled):not(.btn-2--no-click):not(.btn-2--inactive):hover {
     transform : scale(1.03);
 }
 
@@ -154,4 +162,13 @@
 .btn-2.btn-2--translucent {
     --color-btn         : rgba(255, 255, 255, .1);
     --color-btn--active : rgba(255, 255, 255, .2);
+}
+
+.btn-2.btn-2--compact {
+    padding : .75rem;
+    height  : 3.1rem;
+}
+
+.btn-2.btn-2--compact.btn-2--square {
+    width : 3.1rem;
 }

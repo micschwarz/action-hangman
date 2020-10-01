@@ -23,7 +23,7 @@
 <svelte:window on:keyup={keyboardPressHandler}/>
 <div class="btns">
     {#each letters as letter (letter.getValue())}
-        <button class="btn btn--square"
+        <button class="btn-2 btn-2--compact btn-2--square"
                 animate:flip={{duration: 300}}
                 on:click={() => letterClickHandler(letter.getValue())}
                 disabled={letter.isUsed()}>

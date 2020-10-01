@@ -23,15 +23,26 @@
     }
 
     .rounds .current {
-        margin-bottom : .5rem;
-        font-weight   : bold;
+        font-weight : bold;
     }
 
     .rounds .separator {
-        border : 1px solid var(--color-text);
+        position : relative;
+        border   : 1px solid var(--color-text-translucent);
+        margin   : .5rem 0 .65rem;
     }
 
-    .rounds .max {
-        margin-top : .5rem;
+    .rounds .separator:after {
+        position   : absolute;
+        content    : 'von';
+        background : var(--color-background);
+        color      : var(--color-text-translucent);
+        padding    : 0 .2rem;
+        font-size  : .45em;
+        transform  : translate(-50%, -50%);
+        top        : 50%;
+        left       : 50%;
     }
+
+
 </style>

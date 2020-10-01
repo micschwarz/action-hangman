@@ -4,7 +4,8 @@
 
 <div class="btns">
     {#each actions as action (action)}
-        <div class={`btn btn--no-click btn--${action.getColor()}`} class:btn--inactive={action.didRun()}>
+        <div class={`btn-2 btn-2--square btn-2--compact btn-2--no-click btn-2--${action.getColor()}`}
+             class:btn-2--inactive={action.didRun()}>
             <i class={`uil uil-${action.getIcon()}`}></i>
         </div>
     {/each}
