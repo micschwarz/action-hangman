@@ -6,6 +6,8 @@
     import { afterUpdate, getContext } from 'svelte';
     import Loader                      from '../Loader/Loader.svelte';
 
+    export let closeSelf;
+
     export let rounds;
     export let roundsMax;
     export let word;
@@ -65,10 +67,11 @@
     };
 
     const toMenu = () => {
+        closeSelf();
         navigate('/');
     };
 </script>
-<Popup {color} {backgroundIcon} {...$$restProps}>
+<Popup {color} {backgroundIcon} show="{true}">
     <section class="popup-content">
         {#if gameRunning}
             <h2>Auf Gegner warten</h2>
@@ -126,7 +129,7 @@
         </div>
 
         <div class="actions">
-            <button class="btn-2 btn-2--flat btn-2--translucent" on:click={() => navigate('/')}>
+            <button class="btn-2 btn-2--flat btn-2--translucent" on:click={toMenu}>
                 <span class="btn-2-icon"><Icon name="home-alt"/></span>
                 Menü
             </button>

@@ -1,12 +1,13 @@
 <script lang="ts">
     import { Router, Route }   from 'svelte-routing';
-    import Hangman             from './Pages/Hangman.svelte';
     import Login               from './Pages/Login.svelte';
     import Loading             from './Pages/Loading.svelte';
     import { User, UserState } from './services/user/User';
     import MainMenu            from './Pages/MainMenu.svelte';
     import Profile             from './Pages/Profile.svelte';
+    import GameManager         from './Pages/GameManager.svelte';
     import { setContext }      from 'svelte';
+    import PopupOutlet         from './Components/Popups/PopupOutlet.svelte';
 
     const user    = new User();
     let userState = user.getState();
@@ -18,6 +19,8 @@
     });
 </script>
 
+<PopupOutlet/>
+
 {#if userState === UserState.LOGGING_IN}>
     <Loading/>
 {:else if userState === UserState.LOGGED_OUT}
@@ -25,7 +28,7 @@
 {:else if userState === UserState.LOGGED_IN}
     <Router>
         <Route path="/" component={MainMenu}/>
-        <Route path="/game" component={Hangman}/>
+        <Route path="/game" component={GameManager}/>
         <Route path="/profile" component={Profile}/>
     </Router>
 {/if}

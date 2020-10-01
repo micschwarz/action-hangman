@@ -1,22 +1,22 @@
 <script lang="ts">
-    import { Game, GameTypeIdentifier }                            from '../utils/Game';
-    import { STATE_LOSE, STATE_WIN, STATE_LOADING, STATE_PLAYING } from '../stores/state';
-    import LetterKeyboard                                          from '../Components/Hangman/LetterKeyboard.svelte';
-    import Word                                                    from '../Components/Hangman/Word.svelte';
-    import Rounds                                                  from '../Components/Hangman/Rounds.svelte';
-    import WinPopup                                                from '../Components/Popups/WinPopup.svelte';
-    import LosePopup                                               from '../Components/Popups/LosePopup.svelte';
-    import LoaderPopup                                             from '../Components/Popups/LoaderPopup.svelte';
-    import Actions                                                 from '../Components/Hangman/Actions.svelte';
-    import ActionSnackbar                                          from '../Components/Snackbars/ActionSnackbar.svelte';
-    import { getContext, onDestroy }                               from 'svelte';
-    import OneVsOneResultPopup
-                                                                   from '../Components/Popups/OneVsOneResultPopup.svelte';
+    import { Game, GameTypeIdentifier } from '../utils/Game';
+    import { GameState, isFinished }    from '../stores/state';
+    import LetterKeyboard               from '../Components/Hangman/LetterKeyboard.svelte';
+    import Word                         from '../Components/Hangman/Word.svelte';
+    import Rounds                       from '../Components/Hangman/Rounds.svelte';
+    import WinPopup                     from '../Components/Popups/WinPopup.svelte';
+    import LosePopup                    from '../Components/Popups/LosePopup.svelte';
+    import LoaderPopup                  from '../Components/Popups/LoaderPopup.svelte';
+    import Actions                      from '../Components/Hangman/Actions.svelte';
+    import ActionSnackbar               from '../Components/Snackbars/ActionSnackbar.svelte';
+    import { getContext, onDestroy }    from 'svelte';
+    import OneVsOneResultPopup          from '../Components/Popups/OneVsOneResultPopup.svelte';
+    import { open as openPopup }        from '../Components/Popups/PopupOutlet.svelte';
+    import { get }                      from 'svelte/store';
 
-    export let location;
-    let user     = getContext('user');
-    let gameType = location.state?.gameTypeId;
-    let game     = Game.start(gameType);
+    const user = getContext('user');
+
+    export let game: Game;
 
     const stateStore      = game.getStateStore();
     const lettersStore    = game.getLettersStore();
@@ -35,23 +35,49 @@
         }, 2000);
     };
 
-    const restartGame = () => {
-        game = Game.start(gameType);
-        game.onActionFire(setCurrentAction);
-    };
-
     const useLetterHandler = (event) => {
         game.useLetter(event.detail.char);
     };
 
     game.onActionFire(setCurrentAction);
 
+    const openMultiPlayerPopup = () => {
+        openPopup(OneVsOneResultPopup, {
+            rounds   : get(roundsStore),
+            roundsMax: roundsStore.getMax(),
+            word     : get(wordMasterStore),
+            status   : get(stateStore),
+            game     : game,
+        });
+    };
+
+    const openLosePopup = (isMultiplayer) => {
+        if (isMultiplayer) {
+            return openMultiPlayerPopup();
+        }
+        openPopup(LosePopup, { roundsMax: roundsStore.getMax(), word: get(wordMasterStore) });
+    };
+
+    const openWinPopup = (isMultiplayer) => {
+        if (isMultiplayer) {
+            return openMultiPlayerPopup();
+        }
+        openPopup(WinPopup, { rounds: get(roundsStore), word: get(wordMasterStore) });
+    };
+
     const unsubStatStore = stateStore.subscribe((state) => {
-        if (state === STATE_WIN && game.getGameType().countStats) {
+        const isMultiplayer = game.isMultiplayerGame();
+        if (state === GameState.WIN) {
+            openWinPopup(isMultiplayer);
+        } else if (state === GameState.LOSE) {
+            openLosePopup(isMultiplayer);
+        }
+
+        if (state === GameState.WIN && game.getGameType().countStats) {
             user.getStatisticsService().addGameWon();
         }
 
-        if (state === STATE_LOSE && game.getGameType().countStats) {
+        if (state === GameState.LOSE && game.getGameType().countStats) {
             user.getStatisticsService().addGameLost();
         }
     });
@@ -61,36 +87,7 @@
 
 <ActionSnackbar show={currentAction !== undefined} action={currentAction}/>
 
-{#if !game.isMultiplayerGame()}
-    <WinPopup
-            on:restart={restartGame}
-            show={$stateStore === STATE_WIN}
-            rounds={$roundsStore}
-            word={$wordMasterStore}
-            color="var(--green-darken)"
-            backgroundIcon="check-circle"
-    />
-
-    <LosePopup
-            on:restart={restartGame}
-            show={$stateStore === STATE_LOSE}
-            roundsMax={roundsStore.getMax()}
-            word={$wordMasterStore}
-            color="var(--red-darken)"
-            backgroundIcon="times-circle"
-    />
-{:else}
-    <OneVsOneResultPopup
-            show={($stateStore === STATE_WIN) || ($stateStore === STATE_LOSE)}
-            rounds={$roundsStore}
-            roundsMax={roundsStore.getMax()}
-            word={$wordMasterStore}
-            status={$stateStore}
-            game={game}
-    />
-{/if}
-
-<svelte:component this={wordFetchPopup} show={$stateStore === STATE_LOADING} game={game}/>
+<svelte:component this={wordFetchPopup} show={$stateStore === GameState.LOADING} game={game}/>
 
 <section>
     <header>
@@ -99,14 +96,14 @@
         </div>
 
         <div class="rounds">
-            {#if $stateStore !== STATE_LOADING}
+            {#if $stateStore !== GameState.LOADING}
                 <Rounds max={roundsStore.getMax()} current={$roundsStore}/>
             {/if}
         </div>
     </header>
 
     <main>
-        {#if $stateStore !== STATE_LOADING}
+        {#if $stateStore !== GameState.LOADING}
             <LetterKeyboard letters={$lettersStore} on:useLetter={useLetterHandler}/>
             <Actions actions={$actionsStore}/>
         {/if}

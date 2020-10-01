@@ -1,17 +1,19 @@
 <script lang="ts">
-    import Popup                     from '../Helper/Popup.svelte';
-    import { createEventDispatcher } from 'svelte';
-    import Icon                      from '../Icon.svelte';
-    import { navigate }              from 'svelte-routing';
+    import Popup           from '../Helper/Popup.svelte';
+    import Icon            from '../Icon.svelte';
+    import { navigate }    from 'svelte-routing';
+    import { gameManager } from '../../Pages/GameManager.svelte';
+
+    export let closeSelf;
 
     export let word;
     export let roundsMax;
 
-    const dispatch = createEventDispatcher();
 
     const restart = () => {
-        dispatch('restart');
-    }
+        closeSelf();
+        gameManager.restart();
+    };
 
     const share = () => {
         navigator.share({
@@ -22,10 +24,11 @@
     };
 
     const toMenu = () => {
+        closeSelf();
         navigate('/');
-    }
+    };
 </script>
-<Popup {...$$restProps}>
+<Popup color="var(--red-darken)" backgroundIcon="times-circle" show={true}>
     <section class="popup-content">
         <h2>Verloren</h2>
 
@@ -56,7 +59,7 @@
         </div>
 
         <div class="actions">
-            <button class="btn-2 btn-2--flat btn-2--translucent btn-2--square" on:click={() => navigate('/')}>
+            <button class="btn-2 btn-2--flat btn-2--translucent btn-2--square" on:click={toMenu}>
                 <span class="btn-2-icon"><Icon name="home-alt"/></span>
             </button>
             <button class="btn-2 btn-2--flat btn-2--translucent" on:click={restart}>

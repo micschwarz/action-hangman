@@ -27,6 +27,12 @@ export interface GameType {
     countStats: boolean,
 }
 
+export interface GameTypeOpen extends GameType {
+    wordService,
+    actions,
+    isMultiplayer: boolean,
+}
+
 const GAME_TYPE_DEFINITION = {
     0: {
         name         : 'Einzelspieler',
