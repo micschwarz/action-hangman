@@ -4,11 +4,10 @@ import 'firebase/auth';
 import 'firebase/firestore';
 import { ConfigFactory, Environment } from './config/ConfigFactory';
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js')
-        .then(() => console.log('Serviceworker registered.'))
-        .catch((err) => console.error(`Serviceworker could not be registered. ${ err }`))
-}*/
+        .catch((err) => console.error(`Serviceworker could not be registered. ${ err }`));
+}
 
 // Create app config
 const config = ConfigFactory.create(Environment.PROD);

@@ -6,7 +6,7 @@ registerRoute(
     new StaleWhileRevalidate({cacheName: 'fonts'})
 )
 
-registerRoute(
+/*registerRoute(
     ({request}) => request.destination === 'style',
     new StaleWhileRevalidate({cacheName: 'css'})
 )
@@ -18,8 +18,8 @@ registerRoute(
 
 registerRoute(
     ({request}) => request.destination === 'image',
-    new StaleWhileRevalidate({cacheName: 'imagehttp://localhost:1234/'})
-)
+    new StaleWhileRevalidate({cacheName: 'image'})
+)*/
 
 registerRoute(
     ({url}) => url.host === 'raw.githubusercontent.com',
