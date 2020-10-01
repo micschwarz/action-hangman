@@ -21,7 +21,6 @@
 </script>
 
 <PopupOutlet/>
-
 {#if userState === UserState.LOGGING_IN}>
     <Loading/>
 {:else if userState === UserState.LOGGED_OUT}

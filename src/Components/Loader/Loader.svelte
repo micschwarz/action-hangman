@@ -11,6 +11,7 @@
         --loader-thickness : .4rem;
         --loader-color     : var(--color-primary);
 
+        display            : block;
         position           : relative;
         width              : var(--loader-size);
         height             : var(--loader-size);
