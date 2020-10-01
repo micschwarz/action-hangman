@@ -28,6 +28,12 @@
             "src": "static/images/icons/icon-92.png",
             "sizes": "92x92",
             "type": "image/png"
+        },
+        {
+            "src": "static/images/icons/icon-144-transparent.png",
+            "sizes": "144x144",
+            "type": "image/png",
+            "purpose": "maskable"
         }
     ]
 }
