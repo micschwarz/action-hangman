@@ -2,17 +2,18 @@
     import { Game, GameTypeIdentifier } from '../utils/Game';
     import { GameState, isFinished }    from '../stores/state';
     import LetterKeyboard               from '../Components/Hangman/LetterKeyboard.svelte';
-    import Word                         from '../Components/Hangman/Word.svelte';
-    import Rounds                       from '../Components/Hangman/Rounds.svelte';
-    import WinPopup                     from '../Components/Popups/WinPopup.svelte';
-    import LosePopup                    from '../Components/Popups/LosePopup.svelte';
-    import LoaderPopup                  from '../Components/Popups/LoaderPopup.svelte';
-    import Actions                      from '../Components/Hangman/Actions.svelte';
-    import ActionSnackbar               from '../Components/Snackbars/ActionSnackbar.svelte';
-    import { getContext, onDestroy }    from 'svelte';
-    import OneVsOneResultPopup          from '../Components/Popups/OneVsOneResultPopup.svelte';
-    import { open as openPopup }        from '../Components/Popups/PopupOutlet.svelte';
-    import { get }                      from 'svelte/store';
+    import Word                      from '../Components/Hangman/Word.svelte';
+    import Rounds                    from '../Components/Hangman/Rounds.svelte';
+    import WinPopup                  from '../Components/Popups/WinPopup.svelte';
+    import LosePopup                 from '../Components/Popups/LosePopup.svelte';
+    import LoaderPopup               from '../Components/Popups/LoaderPopup.svelte';
+    import Actions                   from '../Components/Hangman/Actions.svelte';
+    import ActionSnackbar            from '../Components/Snackbars/ActionSnackbar.svelte';
+    import { getContext, onDestroy } from 'svelte';
+    import OneVsOneResultPopup       from '../Components/Popups/OneVsOneResultPopup.svelte';
+    import { open as openPopup }     from '../Components/Popups/PopupOutlet.svelte';
+    import { get }                   from 'svelte/store';
+    import { HideUsedAction }        from '../utils/Actions/Action/HideUsedAction';
 
     const user = getContext('user');
 

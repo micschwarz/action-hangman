@@ -19,14 +19,18 @@ export class HideUsedAction extends Action {
         lettersStore.modify(letters => {
             letters.forEach(letter => letter.setUseHidden(false));
             return letters;
-        })
+        });
+    }
+
+    getColor(): string {
+        return 'blue';
     }
 
     getName(): string {
-        return "Verstecke Benutzte";
+        return 'Verstecke Benutzte';
     }
 
     getDescription(): string {
-        return "Alle benutzten Buchstaben werden versteckt";
+        return 'Alle benutzten Buchstaben werden versteckt';
     }
 }

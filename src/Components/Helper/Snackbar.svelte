@@ -1,12 +1,12 @@
 <script>
-    import { slide } from 'svelte/transition';
+    import { fly } from 'svelte/transition';
 
     export let show = false;
 </script>
 
 {#if show}
-    <div class="snackbar" transition:slide={{duration: 200}}>
-        <div class="inner">
+    <div class="snackbar">
+        <div class="inner" transition:fly={{y: 50, duration: 200}}>
             <slot>
 
             </slot>
@@ -15,19 +15,17 @@
 {/if}
 <style>
     .snackbar {
-        position         : absolute;
-        bottom           : 0;
-        left             : 0;
-        width            : 100vw;
+        position        : absolute;
+        left            : 0;
+        bottom          : 0;
+        width           : 100vw;
 
-        z-index          : var(--z-index-snackbar);
+        z-index         : var(--z-index-snackbar);
 
-        padding          : 0 1rem 1rem;
+        display         : flex;
+        justify-content : center;
 
-        background-image : linear-gradient(to top, rgba(10, 10, 15, .5) 0%, transparent 100%);
-
-        display          : flex;
-        justify-content  : center;
+        overflow        : hidden;
     }
 
     .inner {
@@ -38,10 +36,11 @@
         width         : calc(100vw - 2rem);
 
         overflow      : hidden;
-        padding       : 1rem;
 
-        background    : var(--color-background-lighten);
-        border        : 1px solid var(--color-background-border);
-        border-radius : 5px;
+        background    : var(--color-background);
+        box-shadow    : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+        border-radius : .5rem;
+
+        margin        : 1rem;
     }
 </style>

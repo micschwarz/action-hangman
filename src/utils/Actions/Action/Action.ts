@@ -1,5 +1,5 @@
 export abstract class Action {
-    private ran: boolean = false;
+    private ran: boolean       = false;
     private roundsLeft: number = 0;
 
     /**
@@ -27,7 +27,7 @@ export abstract class Action {
      * True if the action was executed.
      */
     didRun() {
-        return this.ran
+        return this.ran;
     }
 
     /**
@@ -35,11 +35,11 @@ export abstract class Action {
      */
     execute() {
         if (this.didRun() || !this.canRun()) {
-            throw new Error('Action is not allowed to be executed.')
+            throw new Error('Action is not allowed to be executed.');
         }
 
         this.roundsLeft = this._run();
-        this.ran = true;
+        this.ran        = true;
     }
 
     /**
@@ -70,7 +70,7 @@ export abstract class Action {
      * Get action color.
      */
     getColor(): string {
-        return 'red'
+        return 'yellow';
     }
 
     /**

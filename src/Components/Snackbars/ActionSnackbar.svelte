@@ -5,7 +5,7 @@
 </script>
 
 <Snackbar {...$$restProps}>
-    <div class="snackbar-content">
+    <div class={`snackbar-content snackbar-content--${action.getColor()}`}>
         <div class="icon">
             <div class={`btn btn--no-click btn--${action.getColor()}`}>
                 <i class={`uil uil-${action.getIcon()}`}></i>
@@ -21,38 +21,52 @@
 </Snackbar>
 
 <style>
+
+
     .snackbar-content {
-        display               : grid;
-        grid-template-rows    : minmax(3rem, max-content);
-        grid-template-columns : 3rem auto;
-        grid-template-areas   : "icon text";
-        grid-gap              : 1rem;
+        width    : 100%;
+        height   : 100%;
+
+        padding  : 1.2rem;
+
+        position : relative;
+        z-index  : 1;
+    }
+
+    .snackbar-content--red {
+        background : var(--red-darken);
+    }
+
+    .snackbar-content--green {
+        background : var(--green-darken);
+    }
+
+    .snackbar-content--blue {
+        background : var(--blue-darken);
+    }
+
+    .snackbar-content--yellow {
+        background : var(--yellow-darken);
     }
 
     .snackbar-content .icon {
-        grid-area       : icon;
+        font-size : 5rem;
+        color     : var(--color-text-translucent-2);
 
-        display         : flex;
-        justify-content : center;
-        align-items     : center;
-    }
-
-    .snackbar-content .icon .btn {
-        width     : 3rem;
-        height    : 3rem;
-
-        font-size : 1.3em;
-        transform : none;
+        position  : absolute;
+        right     : -1rem;
+        bottom    : -1rem;
+        z-index   : -1;
     }
 
     .snackbar-content .text {
-        grid-area      : text;
-
         display        : flex;
         flex-direction : column;
+        color          : var(--color-text-darken);
     }
 
     .snackbar-content .text h3 {
         margin : 0 0 .3rem;
+        color  : var(--color-text);
     }
 </style>

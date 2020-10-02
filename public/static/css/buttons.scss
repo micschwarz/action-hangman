@@ -38,6 +38,11 @@
         --color-btn--active: var(--green-darken);
     }
 
+    &.btn-2--blue {
+        --color-btn: var(--blue);
+        --color-btn--active: var(--blue-darken);
+    }
+
     /* HTML STATES */
     &:hover:not(.btn-2--disabled):not(.btn-2--no-click):not(:disabled) {
         transform: scale(1.03);

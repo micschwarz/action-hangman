@@ -1,7 +1,7 @@
 import { Action }       from './Action';
 import { lettersStore } from '../../../stores/letters';
 import { get }          from 'svelte/store';
-import type { Letter }  from "../../Alphabet/Letter";
+import type { Letter }  from '../../Alphabet/Letter';
 
 export class RandomLetterAction extends Action {
 
@@ -9,10 +9,6 @@ export class RandomLetterAction extends Action {
 
     getIcon(): string {
         return 'plus-circle';
-    }
-
-    getColor(): string {
-        return 'green'
     }
 
     protected _run(): number {
@@ -29,11 +25,15 @@ export class RandomLetterAction extends Action {
         // Do nothing
     }
 
+    getColor(): string {
+        return 'green';
+    }
+
     getName(): string {
-        return "Zufälliger Buchstabe";
+        return 'Zufälliger Buchstabe';
     }
 
     getDescription(): string {
-        return `Der Buchstabe <b>${this.randomChar.getLabel()}</b> wurde für dich aktiviert`;
+        return `Der Buchstabe <b>${ this.randomChar.getLabel() }</b> wurde für dich aktiviert`;
     }
 }
