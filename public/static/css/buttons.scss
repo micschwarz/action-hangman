@@ -1,0 +1,97 @@
+.btn-2 {
+    --color-btn         : var(--color-primary);
+    --color-btn--active : var(--color-primary-darken);
+
+    padding             : 1rem;
+
+    border              : none;
+    border-radius       : .5rem;
+    box-shadow          : 0 .1rem 1.5rem rgba(0, 0, 0, .5);
+
+    cursor              : pointer;
+    background          : var(--color-btn);
+    color               : var(--color-text);
+    font-size           : 1.1em;
+    height: 3.35rem;
+    font-weight: bold;
+
+    outline: none;
+
+    transition: transform .1s ease-in-out;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transform: scale(1) translateZ(0);
+
+
+    /* COLORS */
+
+    &.btn-2--red {
+        --color-btn: var(--red);
+        --color-btn--active: var(--red-darken);
+    }
+
+    &.btn-2--green {
+        --color-btn: var(--green);
+        --color-btn--active: var(--green-darken);
+    }
+
+    /* HTML STATES */
+    &:hover:not(.btn-2--disabled):not(.btn-2--no-click):not(:disabled) {
+        transform: scale(1.03);
+    }
+
+    &:active:not(.btn-2--disabled):not(.btn-2--no-click):not(:disabled) {
+        transform: scale(0.97);
+        background: var(--color-btn--active);
+    }
+
+    &.btn-2--disabled,
+    &:disabled {
+        background: var(--color-btn--active);
+        box-shadow: 0 .05rem .5rem rgba(0, 0, 0, .3);
+        color: var(--color-text-translucent);
+        cursor: not-allowed;
+        transform: scale(.95);
+    }
+
+    &.btn-2--no-click {
+        background: var(--color-btn);
+        box-shadow: 0 .05rem .5rem rgba(0, 0, 0, .3);
+        cursor: not-allowed;
+    }
+
+    /* ADDITIONAL ELEMENTS */
+    .btn-2-icon {
+        margin-right: .7rem;
+    }
+
+    /* MODIFIER */
+    &.btn-2--flat {
+        box-shadow: none;
+    }
+
+    &.btn-2--square {
+        width: 3.35rem;
+
+        .btn-2-icon {
+            margin-right: 0;
+        }
+    }
+
+    &.btn-2--translucent {
+        --color-btn: rgba(255, 255, 255, .1);
+        --color-btn--active: rgba(255, 255, 255, .2);
+    }
+
+    &.btn-2--compact {
+        padding: .75rem;
+        height: 3.1rem;
+
+        &.btn-2--square {
+            width: 3.1rem;
+        }
+    }
+}
