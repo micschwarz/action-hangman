@@ -1,7 +1,7 @@
 export class Letter {
     private readonly value: string;
     private label: string;
-    private used: boolean = false;
+    private used: boolean         = false;
     private isUsedHidden: boolean = false;
 
     /**
@@ -26,11 +26,11 @@ export class Letter {
      *
      * @param label
      */
-    setLabel(label: string) {
+    setLabel(label: string): void {
         this.label = label.toUpperCase();
     }
 
-    resetLabel() {
+    resetLabel(): void {
         this.label = this.value.toUpperCase();
     }
 
@@ -46,7 +46,7 @@ export class Letter {
      *
      * @param isUsed
      */
-    setUsed(isUsed: boolean) {
+    setUsed(isUsed: boolean): void {
         this.used = isUsed;
     }
 
@@ -62,7 +62,7 @@ export class Letter {
      *
      * @param isHidden
      */
-    setUseHidden(isHidden: boolean) {
+    setUseHidden(isHidden: boolean): void {
         this.isUsedHidden = isHidden;
     }
 

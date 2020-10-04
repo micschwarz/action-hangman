@@ -1,21 +1,32 @@
 <script lang="ts" context="module">
-    import { GameManager } from '../utils/GameManager';
+    import { GameManager } from '../Game/GameManager';
 
     export const gameManager = new GameManager();
+    export let restartGame   = () => {
+    };
 </script>
 
 <script lang="ts">
-    import Hangman from './Hangman.svelte';
+    import Hangman       from './Hangman.svelte';
+    import { GameTypes } from '../Game/GameType/GameType';
 
 
     export let location;
-    let gameType = location.state?.gameTypeId;
+    let gameType = location.state?.id || 'LOCAL';
 
-    gameManager.start(gameType);
+    let currentGame = undefined;
 
-    let currentGameStore = gameManager.getCurrentGame();
+    gameManager.start(new (GameTypes[gameType].type)())
+        .then(game => currentGame = game);
+
+    restartGame = () => {
+        gameManager.restart()
+            .then(game => currentGame = game);
+    };
 </script>
 
-{#each [$currentGameStore] as game (game)}
-    <Hangman {game}/>
-{/each}
+{#if currentGame !== undefined}
+    {#each [currentGame] as game (game)}
+        <Hangman {game}/>
+    {/each}
+{/if}

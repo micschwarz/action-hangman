@@ -1,13 +1,13 @@
-import { Action }       from './Action';
-import { lettersStore } from '../../../stores/letters';
+import type { Game } from '../../Game';
+import { Action }    from './Action';
 
 export class HideUsedAction extends Action {
     getIcon(): string {
         return 'question-circle';
     }
 
-    protected _run(): number {
-        lettersStore.modify(letters => {
+    protected _run(game: Game): number {
+        game.getAlphabetStore().modify(letters => {
             letters.forEach(letter => letter.setUseHidden(true));
             return letters;
         });
@@ -15,8 +15,8 @@ export class HideUsedAction extends Action {
         return 1;
     }
 
-    protected _reset() {
-        lettersStore.modify(letters => {
+    protected _reset(game: Game) {
+        game.getAlphabetStore().modify(letters => {
             letters.forEach(letter => letter.setUseHidden(false));
             return letters;
         });

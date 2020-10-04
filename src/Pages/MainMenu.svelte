@@ -1,25 +1,24 @@
 <script>
-    import Logo           from '../Components/Logo.svelte';
-    import Icon           from '../Components/Icon.svelte';
-    import { Game }       from '../utils/Game';
-    import { navigate }   from 'svelte-routing';
-    import { getContext } from 'svelte';
+    import Logo            from '../Components/Logo.svelte';
+    import Icon            from '../Components/Icon.svelte';
+    import { GameTypes }   from '../Game/GameType/GameType';
+    import { navigate }    from 'svelte-routing';
+    import { currentUser } from '../services/user/User';
 
-    let user        = getContext('user');
-    let displayName = user.getDisplayName();
+    let displayName = currentUser.getDisplayName();
 
     const logout = () => {
-        user.logout();
+        currentUser.logout();
     };
 
-    const start = (gameTypeId) => {
+    const start = (id) => {
         navigate(
             '/game',
             {
-                state: { gameTypeId }
-            }
-        )
-    }
+                state: { id },
+            },
+        );
+    };
 </script>
 
 <main class="menu">
@@ -35,15 +34,15 @@
     <nav class="navigation">
         <div class="game-modes-scroll">
             <div class="game-modes">
-                {#each Game.getGameTypes() as gameType (gameType.identifier)}
-                    <div class={`card card--${gameType.color}`}
-                         on:click={() => start(gameType.identifier)}>
+                {#each Object.keys(GameTypes) as id (id)}
+                    <div class={`card card--${GameTypes[id].color}`}
+                         on:click={() => start(id)}>
                         <div class="icon">
-                            <Icon name={gameType.icon}/>
+                            <Icon name={GameTypes[id].icon}/>
                         </div>
-                        <h3 class="title">{gameType.name}</h3>
+                        <h3 class="title">{GameTypes[id].name}</h3>
                         <div class="description">
-                            {gameType.description}
+                            {GameTypes[id].description}
                         </div>
                     </div>
                 {/each}

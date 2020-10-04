@@ -1,3 +1,5 @@
+import type { Game } from '../../Game';
+
 export abstract class Action {
     private ran: boolean       = false;
     private roundsLeft: number = 0;
@@ -14,14 +16,14 @@ export abstract class Action {
      *
      * @return Number of rounds the effect will last.
      */
-    protected abstract _run(): number;
+    protected abstract _run(game: Game): number;
 
     /**
      * Resets action effects.
      *
      * @private
      */
-    protected abstract _reset();
+    protected abstract _reset(game: Game);
 
     /**
      * True if the action was executed.
@@ -33,12 +35,12 @@ export abstract class Action {
     /**
      * Execute action.
      */
-    execute() {
+    execute(game: Game) {
         if (this.didRun() || !this.canRun()) {
             throw new Error('Action is not allowed to be executed.');
         }
 
-        this.roundsLeft = this._run();
+        this.roundsLeft = this._run(game);
         this.ran        = true;
     }
 
@@ -46,9 +48,9 @@ export abstract class Action {
      * Updates Action.
      * Called every round.
      */
-    update() {
+    update(game: Game) {
         if (this.didRun() && this.roundsLeft === 1) {
-            this._reset();
+            this._reset(game);
         }
 
         if (this.roundsLeft > 0) {

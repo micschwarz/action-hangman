@@ -1,28 +1,26 @@
 <script lang="ts">
-    import Icon           from '../Components/Icon.svelte';
-    import { navigate }   from 'svelte-routing';
-    import { getContext } from 'svelte';
-    import Loader         from '../Components/Loader/Loader.svelte';
+    import Icon            from '../Components/Icon.svelte';
+    import { navigate }    from 'svelte-routing';
+    import Loader          from '../Components/Loader/Loader.svelte';
+    import { currentUser } from '../services/user/User';
 
-    let user = getContext('user');
-
-    let displayName = user.getDisplayName();
-    let email       = user.getEmail();
+    let displayName = currentUser.getDisplayName();
+    let email       = currentUser.getEmail();
 
     let isValid;
     $: isValid = email !== '';
 
     let isLoading = false;
 
-    let profileName = user.getDisplayName() || user.getEmail();
+    let profileName = currentUser.getDisplayName() || currentUser.getEmail();
 
-    let statisticsService = user.getStatisticsService();
+    let statisticsService = currentUser.getStatisticsService();
 
     const update = () => {
         isLoading = true;
 
-        user.update(email, displayName === '' ? null : displayName)
-            .then(() => profileName = user.getDisplayName() || user.getEmail())
+        currentUser.update(email, displayName === '' ? null : displayName)
+            .then(() => profileName = currentUser.getDisplayName() || currentUser.getEmail())
             .finally(() => isLoading = false);
     };
 </script>

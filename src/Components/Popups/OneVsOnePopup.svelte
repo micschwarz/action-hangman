@@ -1,11 +1,11 @@
 <script>
-    import Popup          from '../Helper/Popup.svelte';
-    import Icon           from '../Icon.svelte';
-    import { getContext } from 'svelte';
-    import Loader         from '../Loader/Loader.svelte';
+    import Popup           from '../Helper/Popup.svelte';
+    import Icon            from '../Icon.svelte';
+    import Loader          from '../Loader/Loader.svelte';
+    import { currentUser } from '../../services/user/User';
 
-    export let game;
-    let user = getContext('user');
+    export let wordManager;
+    let user = currentUser;
 
     let buttonsLocked = false;
     let gameCreation;
@@ -25,8 +25,7 @@
     const createGame = () => {
         buttonsLocked = true;
 
-        gameCreation = game.getWordService()
-            .createGame(user);
+        gameCreation = wordManager.createGame();
     };
 
     const showJoinGameForm = () => {
@@ -36,15 +35,13 @@
 
     const joinGame = () => {
         isGameJoinLoading = true;
-        game.getWordService()
-            .joinGame(user, gameCode)
-            .then(() => gameCode = '')
+        wordManager.joinGame(gameCode)
             .catch(error => gameError = error)
             .finally(() => isGameJoinLoading = false);
     };
 </script>
 
-<Popup {...$$restProps}>
+<Popup show={true}>
     <div class="popup-content">
         <h2>One VS One</h2>
 

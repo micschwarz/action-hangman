@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { STATE_LOSE }              from '../../stores/state';
-    import Popup                       from '../Helper/Popup.svelte';
-    import Icon                        from '../Icon.svelte';
-    import { navigate }                from 'svelte-routing';
-    import { afterUpdate, getContext } from 'svelte';
-    import Loader                      from '../Loader/Loader.svelte';
+    import Popup           from '../Helper/Popup.svelte';
+    import Icon            from '../Icon.svelte';
+    import { navigate }    from 'svelte-routing';
+    import Loader          from '../Loader/Loader.svelte';
+    import { currentUser } from '../../services/user/User';
+    import { State }       from '../../Game/GameState';
 
     export let closeSelf;
 
@@ -17,43 +17,36 @@
     let color          = 'var(--color-background)';
     let backgroundIcon = 'clock-ten';
 
-    let user = getContext('user');
-
     let gameRunning = true;
     let lost        = true;
 
     let roundsOther = undefined;
 
-    afterUpdate(() => {
-        if (!game.getMultiplayerDocument()) {
+    const unsub = game.onSnapshot(documentRef => {
+        const gameData  = documentRef.data();
+        const isPlayer1 = gameData.player1 === currentUser.getUid();
+
+        if (!gameData.roundsPlayer1 || !gameData.roundsPlayer1) {
             return;
         }
 
-        game.getMultiplayerDocument().onSnapshot((documentRef) => {
-            const game      = documentRef.data();
-            const isPlayer1 = user.getUid() === game.player1;
+        unsub(); // Unsub to prevent memory leak
+        gameRunning = false;
 
-            if (game.roundsPlayer1 === null || game.roundsPlayer2 === null) {
-                return;
-            }
+        if (isPlayer1) {
+            lost        = gameData.roundsPlayer2 <= gameData.roundsPlayer1;
+            roundsOther = gameData.roundsPlayer2;
+        } else {
+            lost        = gameData.roundsPlayer2 >= gameData.roundsPlayer1;
+            roundsOther = gameData.roundsPlayer1;
+        }
 
-            gameRunning = false;
+        if (status === State.LOST) {
+            lost = true;
+        }
 
-            if (isPlayer1) {
-                lost        = game.roundsPlayer2 <= game.roundsPlayer1;
-                roundsOther = game.roundsPlayer2;
-            } else {
-                lost        = game.roundsPlayer2 >= game.roundsPlayer1;
-                roundsOther = game.roundsPlayer1;
-            }
-
-            if (status === STATE_LOSE) {
-                lost = true;
-            }
-
-            color          = lost ? 'var(--red-darken)' : 'var(--green-darken)';
-            backgroundIcon = lost ? 'times-circle' : 'check-circle';
-        });
+        color          = lost ? 'var(--red-darken)' : 'var(--green-darken)';
+        backgroundIcon = lost ? 'times-circle' : 'check-circle';
     });
 
     const share = () => {

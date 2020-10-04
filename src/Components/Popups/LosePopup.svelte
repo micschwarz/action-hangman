@@ -1,8 +1,8 @@
 <script lang="ts">
-    import Popup           from '../Helper/Popup.svelte';
-    import Icon            from '../Icon.svelte';
-    import { navigate }    from 'svelte-routing';
-    import { gameManager } from '../../Pages/GameManager.svelte';
+    import Popup                        from '../Helper/Popup.svelte';
+    import Icon                         from '../Icon.svelte';
+    import { navigate }                 from 'svelte-routing';
+    import { gameManager, restartGame } from '../../Pages/GameManager.svelte';
 
     export let closeSelf;
 
@@ -12,7 +12,7 @@
 
     const restart = () => {
         closeSelf();
-        gameManager.restart();
+        restartGame();
     };
 
     const share = () => {

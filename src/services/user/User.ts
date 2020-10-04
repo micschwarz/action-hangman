@@ -164,3 +164,5 @@ export enum UserState {
     LOGGED_IN,
     LOGGED_OUT,
 }
+
+export const currentUser = new User();

@@ -1,7 +1,7 @@
-import { Action }       from './Action';
-import { lettersStore } from '../../../stores/letters';
-import { get }          from 'svelte/store';
-import type { Letter }  from '../../Alphabet/Letter';
+import type { Game }   from '../../Game';
+import type { Letter } from '../../Alphabet/Letter';
+import { Action }      from './Action';
+import { get }         from 'svelte/store';
 
 export class RandomLetterAction extends Action {
 
@@ -11,13 +11,13 @@ export class RandomLetterAction extends Action {
         return 'plus-circle';
     }
 
-    protected _run(): number {
-        const unusedChars = get(lettersStore)
+    protected _run(game: Game): number {
+        const unusedChars = get(game.getAlphabetStore())
             .filter(letter => !letter.isUsed());
 
         this.randomChar = unusedChars[~~(unusedChars.length * Math.random())];
 
-        lettersStore.use(this.randomChar.getValue());
+        game.getAlphabetStore().use(this.randomChar.getValue());
         return 0;
     }
 

@@ -2,11 +2,16 @@
     import Popup from '../Helper/Popup.svelte';
     import Icon  from '../Icon.svelte';
 
-    export let game;
-    let word = "";
+    export let resolve;
+    let word = '';
+
+    const startGame = () => {
+        if (isValid) {
+            resolve(word);
+        }
+    };
 
     /* Validation */
-
     let hasMinLength;
     $: hasMinLength = word.length >= 2;
 
@@ -21,14 +26,9 @@
 
     let isNotEmpty = false;
     $: isNotEmpty = word.length > 0;
-
-    const startGame = () => {
-        game.getWordService().resolve(word);
-        word = "";
-    }
 </script>
 
-<Popup {...$$restProps}>
+<Popup show={true}>
     <div class="popup-content">
         <h2>Wähle ein Wort!</h2>
         <form class="word-form">
