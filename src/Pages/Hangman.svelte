@@ -1,10 +1,13 @@
 <script lang="ts">
+    import { fly }        from 'svelte/transition';
     import LetterKeyboard from '../Components/Hangman/LetterKeyboard.svelte';
     import Word           from '../Components/Hangman/Word.svelte';
     import Rounds         from '../Components/Hangman/Rounds.svelte';
     import Actions        from '../Components/Hangman/Actions.svelte';
     import ActionSnackbar from '../Components/Snackbars/ActionSnackbar.svelte';
     import { Game }       from '../Game/Game';
+    import Icon           from '../Components/Icon.svelte';
+    import GameMenu       from '../Components/Hangman/GameMenu.svelte';
 
     export let game: Game;
 
@@ -27,6 +30,12 @@
     const roundsStore  = game.getGameState().getRoundsStore();
     const lettersStore = game.getAlphabetStore();
     const actionsStore = game.getActionsStore();
+
+    let showMenu     = false;
+    const toggleMenu = () => {
+        showMenu = !showMenu;
+    };
+
 </script>
 
 <ActionSnackbar show={currentAction !== undefined} action={currentAction}/>
@@ -49,8 +58,20 @@
 
     <footer>
         <div class="actions">
-
             <Actions actions={$actionsStore}/>
+        </div>
+        <div class="game-menu">
+            <button class="btn-2 btn-2--square btn-2--compact btn-2--flat btn-2--translucent" on:click={toggleMenu}>
+                <span class="btn-2-icon">
+                    <Icon name="bars"/>
+                </span>
+            </button>
+
+            {#if showMenu}
+                <div class="menu" transition:fly={{y: 20, duration: 100}}>
+                    <GameMenu/>
+                </div>
+            {/if}
         </div>
     </footer>
 
@@ -106,7 +127,6 @@
         grid-area : footer;
 
         padding   : 1rem;
-        overflow  : hidden;
 
         position  : relative;
     }
@@ -116,9 +136,26 @@
 
         -ms-overflow-style : none;
         scrollbar-width    : none;
+
+        margin-right       : 4.1rem;
     }
 
     footer .actions::-webkit-scrollbar {
         display : none;
+    }
+
+    footer .game-menu {
+        position : absolute;
+        right    : 0;
+        top      : 0;
+        padding  : 1rem;
+    }
+
+    footer .game-menu .menu {
+        position  : absolute;
+        right     : 1rem;
+        top       : 0;
+
+        transform : translateY(-100%);
     }
 </style>
