@@ -24,7 +24,7 @@
     $: hasMinLength = word.length >= 2;
 
     let hasMaxLength;
-    $: hasMaxLength = word.length <= 6;
+    $: hasMaxLength = word.length < 6;
 
     let hasValidAlphabet;
     $: hasValidAlphabet = /^[a-z]*$/i.test(word);
@@ -43,10 +43,10 @@
             <label class="form-2 form-2--required" class:form-2--has-error={!isValid && isNotEmpty} for="word">
                 <span class="form-2-label">Wort</span>
                 <input class="form-2-input" type="text" name="word" id="word"
-                       bind:value={word} maxlength="6" minlength="2" pattern="^[A-Za-z]*$" required>
+                       bind:value={word} maxlength="5" minlength="2" pattern="^[A-Za-z]*$" required>
                 <span class="form-2-error">
                     {#if !hasMaxLength}
-                        Die Maximallänge beträgt 6
+                        Die Maximallänge beträgt 5
                     {:else if !hasMinLength}
                         Die Minimallänge beträgt 2
                     {:else if !hasValidAlphabet}

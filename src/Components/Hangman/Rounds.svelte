@@ -15,8 +15,7 @@
         flex-direction : column;
         align-items    : stretch;
 
-        padding        : 1rem;
-        width          : 4rem;
+        width          : 2rem;
 
         font-size      : 1.4em;
         text-align     : center;

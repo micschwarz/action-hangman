@@ -44,17 +44,24 @@
 
     <main>
         <LetterKeyboard letters={$lettersStore} on:useLetter={useLetterHandler}/>
-        <Actions actions={$actionsStore}/>
+
     </main>
+
+    <footer>
+        <div class="actions">
+
+            <Actions actions={$actionsStore}/>
+        </div>
+    </footer>
 
 </section>
 
 <style>
     section {
         display               : grid;
-        grid-template-rows    : auto auto;
-        grid-template-columns : max-content;
-        grid-template-areas   : "header" "main";
+        grid-template-rows    : auto auto auto;
+        grid-template-columns : 21.5rem;
+        grid-template-areas   : "header" "main" "footer";
         justify-content       : center;
 
         padding               : 1rem;
@@ -64,15 +71,20 @@
 
     main {
         grid-area : main;
+        padding   : 1rem;
     }
 
     header {
+        box-sizing            : border-box;
         grid-area             : header;
 
         display               : grid;
         grid-template-rows    : auto;
-        grid-template-columns : auto 4rem;
+        grid-template-columns : auto 2rem;
         grid-template-areas   : "word rounds";
+        grid-gap              : 1rem;
+
+        padding               : 1rem;
     }
 
     header .rounds {
@@ -88,5 +100,25 @@
 
         margin          : 0;
         text-align      : center;
+    }
+
+    footer {
+        grid-area : footer;
+
+        padding   : 1rem;
+        overflow  : hidden;
+
+        position  : relative;
+    }
+
+    footer .actions {
+        overflow-x         : auto;
+
+        -ms-overflow-style : none;
+        scrollbar-width    : none;
+    }
+
+    footer .actions::-webkit-scrollbar {
+        display : none;
     }
 </style>

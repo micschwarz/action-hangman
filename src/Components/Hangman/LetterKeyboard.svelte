@@ -27,7 +27,6 @@
     .btns {
         display               : grid;
         grid-gap              : 1rem;
-        grid-template-columns : repeat(5, 3rem);
-        padding               : 1rem;
+        grid-template-columns : repeat(5, 3.1rem);
     }
 </style>
