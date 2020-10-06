@@ -3,6 +3,7 @@
     import Icon            from '../Icon.svelte';
     import Loader          from '../Loader/Loader.svelte';
     import { currentUser } from '../../services/user/User';
+    import { navigate }    from 'svelte-routing';
 
     export let wordManager;
     let user = currentUser;
@@ -39,22 +40,32 @@
             .catch(error => gameError = error)
             .finally(() => isGameJoinLoading = false);
     };
+
+    const toMenu = () => {
+        wordManager.abort();
+        navigate('/');
+    };
 </script>
 
 <Popup show={true}>
     <div class="popup-content">
         <h2>One VS One</h2>
 
-        <div class="actions">
-            <button type="submit" class="btn-2 btn-2--green" disabled={buttonsLocked}
+        <div class="actions" class:action--choosen={!!gameCreation || showGameJoin}>
+            <button class="btn-2 btn-2--green" class:action--hidden={showGameJoin} disabled={buttonsLocked}
                     on:click|once={createGame}>
                 <span class="btn-2-icon"><Icon name="plus"/></span>
                 Erstellen
             </button>
-            <button type="submit" class="btn-2" disabled={buttonsLocked}
+            <button class="btn-2" class:action--hidden={!!gameCreation} disabled={buttonsLocked}
                     on:click|once={showJoinGameForm}>
                 <span class="btn-2-icon"><Icon name="user-check"/></span>
                 Betreten
+            </button>
+            <button class="btn-2 btn-2--red"
+                    on:click={toMenu}>
+                <span class="btn-2-icon"><Icon name="home-alt"/></span>
+                Abbrechen
             </button>
         </div>
 
@@ -112,36 +123,54 @@
 </Popup>
 
 
-<style>
+<style lang="scss">
     .popup-content {
-        padding : 1.5rem;
+        padding: 1.5rem;
     }
 
     .popup-content h2 {
-        margin    : 0;
-        font-size : 1.5em;
-        color     : rgba(255, 255, 255, .95);
+        margin: 0;
+        font-size: 1.5em;
+        color: rgba(255, 255, 255, .95);
     }
 
     .popup-content .actions {
-        margin-top : 1rem;
-        display    : flex;
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        &.action--choosen {
+            flex-direction: row;
+        }
     }
 
     .popup-content .actions .btn-2 {
-        margin-right : 1rem;
+        margin-bottom: 1rem;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        &.action--hidden {
+            display: none;
+            margin-bottom: 0;
+        }
     }
 
-    .popup-content .actions .btn-2:last-child {
-        margin-right : 0;
+    .popup-content .actions.action--choosen .btn-2 {
+        margin-right: 1rem;
+
+        &:last-child {
+            margin-right: 0;
+        }
     }
 
     .popup-content .game-init .game-init-created {
-        display        : flex;
-        flex-direction : column;
-        align-items    : center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
 
-        margin-top     : 2rem;
+        margin-top: 2rem;
     }
 
     .popup-content .game-init .game-init-created .code {

@@ -7,8 +7,9 @@
 </script>
 
 <script lang="ts">
-    import Hangman       from './Hangman.svelte';
-    import { GameTypes } from '../Game/GameType/GameType';
+    import Hangman               from './Hangman.svelte';
+    import { GameTypes }         from '../Game/GameType/GameType';
+    import { WordManagerErrors } from '../Game/WordManager/WordManager';
 
 
     export let location;
@@ -16,12 +17,23 @@
 
     let currentGame = undefined;
 
+    const handleGameCreationError = error => {
+        currentGame = undefined;
+        if (error !== WordManagerErrors.ABORT) {
+            throw error;
+        }
+    };
+
+    const handleGameCreation = game => currentGame = game;
+
     gameManager.start(new (GameTypes[gameType].type)())
-        .then(game => currentGame = game);
+        .then(handleGameCreation)
+        .catch(handleGameCreationError);
 
     restartGame = () => {
         gameManager.restart()
-            .then(game => currentGame = game);
+            .then(handleGameCreation)
+            .catch(handleGameCreationError);
     };
 </script>
 

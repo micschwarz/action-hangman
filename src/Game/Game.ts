@@ -20,8 +20,9 @@ export class Game {
      *
      * @param gameType
      */
-    static async create(gameType: GameType) {
-        return await gameType.getWordManager().fetch()
+    static create(gameType: GameType): Promise<Game> {
+        return gameType.getWordManager()
+            .fetch()
             .then((word) => {
                 const alphabetStore = AlphabetStoreFactory.create();
                 const actionsStore  = ActionsStoreFactory.create(gameType.getActions());

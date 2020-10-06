@@ -5,8 +5,8 @@ import WordInputPopup                             from '../../Components/Popups/
 
 export class LocalMultiPlayerWordManager implements WordManager {
     fetch(): Promise<string> {
-        return new Promise<string>(resolve => {
-            openPopup(WordInputPopup, { resolve });
+        return new Promise<string>((resolve, reject) => {
+            openPopup(WordInputPopup, { resolve, reject });
         }).finally(() => closePopup(WordInputPopup));
     }
 }

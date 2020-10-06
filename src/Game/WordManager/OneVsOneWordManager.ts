@@ -1,13 +1,13 @@
 import type { WordManager }                       from './WordManager';
+import { WordManagerErrors }                      from './WordManager';
 import { LocalWord }                              from '../../services/word/LocalWord';
 // @ts-ignore
-import { open as openPopup, close as closePopup } from '../../Components/Popups/PopupOutlet.svelte';
+import { close as closePopup, open as openPopup } from '../../Components/Popups/PopupOutlet.svelte';
 import OneVsOnePopup                              from '../../Components/Popups/OneVsOnePopup.svelte';
 import firebase                                   from 'firebase/app';
-
+import { currentUser }                            from '../../services/user/User';
 import CollectionReference = firebase.firestore.CollectionReference;
 import DocumentReference = firebase.firestore.DocumentReference;
-import { currentUser }                            from '../../services/user/User';
 
 export enum Player {
     ONE = 1,
@@ -46,6 +46,13 @@ export class OneVsOneWordManager implements WordManager {
     private resolve: (word: string) => void;
 
     /**
+     * Reject word creation.
+     *
+     * @private
+     */
+    private reject: (reason: WordManagerErrors) => void;
+
+    /**
      * Player number.
      * Player.ONE is the host. Player.TWO is the guest.
      *
@@ -60,9 +67,10 @@ export class OneVsOneWordManager implements WordManager {
     fetch(): Promise<string> {
         openPopup(OneVsOnePopup, { wordManager: this });
 
-        return new Promise<string>(resolve => {
+        return new Promise<string>((resolve, reject) => {
             this.resolve = resolve;
-        });
+            this.reject  = reject;
+        }).finally(() => closePopup(OneVsOnePopup));
     }
 
     /**
@@ -72,6 +80,9 @@ export class OneVsOneWordManager implements WordManager {
         return this.document;
     }
 
+    /**
+     * Get the player.
+     */
     getPlayer(): Player {
         return this.player;
     }
@@ -164,9 +175,17 @@ export class OneVsOneWordManager implements WordManager {
                     this.resolve(word);
                     resolve();
                 })
-                .then(() => closePopup(OneVsOnePopup))
                 .catch(reject);
         });
+    }
+
+    /**
+     * Abort one vs one game creation.
+     */
+    abort() {
+        if (this.reject) {
+            this.reject(WordManagerErrors.ABORT);
+        }
     }
 
     /**
@@ -179,7 +198,6 @@ export class OneVsOneWordManager implements WordManager {
             const game = documentRef.data();
             if (game.player2 !== null) {
                 unsub(); // Unsub change listener to prevent memory leak
-                closePopup(OneVsOnePopup);
                 this.resolve(game.word);
             }
         });

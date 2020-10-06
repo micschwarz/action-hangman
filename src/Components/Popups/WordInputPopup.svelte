@@ -1,14 +1,22 @@
 <script>
-    import Popup from '../Helper/Popup.svelte';
-    import Icon  from '../Icon.svelte';
+    import Popup                 from '../Helper/Popup.svelte';
+    import Icon                  from '../Icon.svelte';
+    import { navigate }          from 'svelte-routing';
+    import { WordManagerErrors } from '../../Game/WordManager/WordManager';
 
     export let resolve;
+    export let reject;
     let word = '';
 
     const startGame = () => {
         if (isValid) {
             resolve(word);
         }
+    };
+
+    const toMenu = () => {
+        reject(WordManagerErrors.ABORT);
+        navigate('/');
     };
 
     /* Validation */
@@ -51,9 +59,13 @@
 
             <div class="actions">
                 <button type="submit" class="btn-2 btn-2--green" on:click|preventDefault={startGame}
+                        id="btn-submit"
                         disabled={!isValid}>
                     <span class="btn-2-icon"><Icon name="play"/></span>
                     Los gehts
+                </button>
+                <button type="submit" class="btn-2 btn-2--red btn-2--square" on:click|preventDefault={toMenu}>
+                    <span class="btn-2-icon"><Icon name="home-alt"/></span>
                 </button>
             </div>
         </form>
@@ -82,5 +94,18 @@
 
     .actions {
         margin-top : 1rem;
+        display    : flex;
+    }
+
+    .actions #btn-submit {
+        flex-grow : 1;
+    }
+
+    .actions .btn-2 {
+        margin-right : 1rem;
+    }
+
+    .actions .btn-2:last-child {
+        margin-right : 0;
     }
 </style>

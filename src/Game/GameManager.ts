@@ -15,11 +15,11 @@ export class GameManager {
      * @param gameType
      */
     start(gameType: GameType): Promise<Game> {
-        return new Promise(async (resolve) => {
-            const game = await Game.create(gameType);
-            this.type  = gameType;
-            resolve(game);
-        });
+        return Game.create(gameType)
+            .then((game) => {
+                this.type = gameType;
+                return game;
+            });
 
     }
 
