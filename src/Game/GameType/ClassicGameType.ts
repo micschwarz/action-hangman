@@ -7,6 +7,8 @@ import { SinglePlayerWordManager } from '../WordManager/SinglePlayerWordManager'
 import { ClassicActions }          from '../Actions/ClassicActions';
 import { State }                   from '../GameState';
 import { currentUser }             from '../../services/user/User';
+// @ts-ignore
+import { addXP }                   from '../../Components/ExperienceAdd.svelte';
 
 export class ClassicGameType extends OnDeviceGameType {
     getActions(): Actions {
@@ -24,6 +26,7 @@ export class ClassicGameType extends OnDeviceGameType {
     finish(gameState: GameState) {
         super.finish(gameState);
         const xpIncrease = gameState.getState() === State.WON ? 35 : 15;
-        currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease);
+        currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease)
+            .then(() => addXP(xpIncrease));
     }
 }

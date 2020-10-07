@@ -8,6 +8,7 @@
     import { Game }       from '../Game/Game';
     import Icon           from '../Components/Icon.svelte';
     import GameMenu       from '../Components/Hangman/GameMenu.svelte';
+    import ExperienceAdd  from '../Components/ExperienceAdd.svelte';
 
     export let game: Game;
 
@@ -35,9 +36,9 @@
     const toggleMenu = () => {
         showMenu = !showMenu;
     };
-
 </script>
 
+<ExperienceAdd/>
 <ActionSnackbar show={currentAction !== undefined} action={currentAction}/>
 
 <section>

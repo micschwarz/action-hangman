@@ -7,6 +7,8 @@ import { OnDeviceGameType }        from './OnDeviceGameType';
 import { SinglePlayerWordManager } from '../WordManager/SinglePlayerWordManager';
 import { AllActions }              from '../Actions/AllActions';
 import { currentUser }             from '../../services/user/User';
+// @ts-ignore
+import { addXP }                   from '../../Components/ExperienceAdd.svelte';
 
 export class LocalGameType extends OnDeviceGameType {
     getActions(): Actions {
@@ -24,6 +26,7 @@ export class LocalGameType extends OnDeviceGameType {
     finish(gameState: GameState) {
         super.finish(gameState);
         const xpIncrease = gameState.getState() === State.WON ? 40 : 20;
-        currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease);
+        currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease)
+            .then(addXP(xpIncrease));
     }
 }

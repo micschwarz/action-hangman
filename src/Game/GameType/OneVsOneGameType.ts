@@ -4,11 +4,13 @@ import type { WordManager }            from '../WordManager/WordManager';
 import type { GameType }               from './GameType';
 import { ClassicActions }              from '../Actions/ClassicActions';
 import { OneVsOneWordManager, Player } from '../WordManager/OneVsOneWordManager';
-// @ts-ignore
-import { open as openPopup }           from '../../Components/Popups/PopupOutlet.svelte';
 import OneVsOneResultPopup             from '../../Components/Popups/OneVsOneResultPopup.svelte';
 import { State }                       from '../GameState';
 import { currentUser }                 from '../../services/user/User';
+// @ts-ignore
+import { open as openPopup }           from '../../Components/Popups/PopupOutlet.svelte';
+// @ts-ignore
+import { addXP as addXPPopup }         from '../../Components/ExperienceAdd.svelte';
 
 export class OneVsOneGameType implements GameType {
 
@@ -27,7 +29,8 @@ export class OneVsOneGameType implements GameType {
 
         const addXP = (state: State) => {
             const xpIncrease = state === State.WON ? 40 : 20;
-            currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease);
+            currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease)
+                .then(() => addXPPopup(xpIncrease));
         };
 
         openPopup(
