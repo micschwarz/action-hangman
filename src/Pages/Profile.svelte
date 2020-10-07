@@ -3,6 +3,7 @@
     import { navigate }    from 'svelte-routing';
     import Loader          from '../Components/Loader/Loader.svelte';
     import { currentUser } from '../services/user/User';
+    import Bar             from '../Components/Bar.svelte';
 
     let displayName = currentUser.getDisplayName();
     let email       = currentUser.getEmail();
@@ -16,6 +17,8 @@
 
     const statistics = currentUser.getStatisticsService();
     const xp         = statistics.getExperienceStore();
+    let level;
+    $: level = statistics.getLevelByExperience($xp);
 
     const update = () => {
         isLoading = true;
@@ -36,7 +39,16 @@
             </div>
             <h3 class="title">{profileName}</h3>
             <div class="statistics">
-                Dein Level: <span class="games-ratio">{statistics.getLevelByExperience($xp)}</span>
+                Dein Level: <span class="games-ratio">{level}</span>
+                <div class="bar">
+                    <Bar
+                            min={statistics.getMinXpByLevel(level)}
+                            max={statistics.getMaxXpByLevel(level)}
+                            value={$xp}/>
+                    <div class="bar-desc">
+                        <span class="xp-current">{$xp}</span>/{statistics.getMaxXpByLevel(level)}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -69,7 +81,6 @@
                 </button>
             </div>
         </div>
-
     </div>
 </main>
 
@@ -113,6 +124,7 @@
         right     : -5rem;
         font-size : 10rem;
         color     : rgba(255, 255, 255, .2);
+        z-index   : -1;
     }
 
     .card .title {
@@ -133,6 +145,22 @@
 
     .card .statistics .no-statistics {
         color : var(--color-text-translucent);
+    }
+
+    .card .statistics .bar {
+        margin-top     : .5rem;
+        display        : flex;
+        flex-direction : column;
+        align-items    : flex-end;
+    }
+
+    .card .statistics .bar .bar-desc {
+        margin-top : .4rem;
+        font-size  : .9em;
+    }
+
+    .card .statistics .bar .bar-desc .xp-current {
+        font-weight : bold;
     }
 
     .card .statistics .games-ratio {

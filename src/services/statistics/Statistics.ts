@@ -16,7 +16,7 @@ export class Statistics {
 
     createExperienceStore(uId: string): ExperienceStore {
         const { set, subscribe } = tweened<number>(0, {
-            duration   : 200,
+            duration   : 1000,
             easing     : cubicOut,
             interpolate: (start: number, end: number) => {
                 // Make transition as integer
@@ -63,7 +63,11 @@ export class Statistics {
         return Math.floor(0.9 * xp / 150);
     }
 
-    getAmountXpByLevel(level: number) {
+    getMaxXpByLevel(level: number) {
+        return Math.ceil((level + 1) * 150 / 0.9) - 1;
+    }
+
+    getMinXpByLevel(level: number) {
         return Math.ceil(level * 150 / 0.9);
     }
 }
