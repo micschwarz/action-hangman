@@ -7,6 +7,8 @@ import { OneVsOneWordManager, Player } from '../WordManager/OneVsOneWordManager'
 // @ts-ignore
 import { open as openPopup }           from '../../Components/Popups/PopupOutlet.svelte';
 import OneVsOneResultPopup             from '../../Components/Popups/OneVsOneResultPopup.svelte';
+import { State }                       from '../GameState';
+import { currentUser }                 from '../../services/user/User';
 
 export class OneVsOneGameType implements GameType {
 
@@ -22,6 +24,12 @@ export class OneVsOneGameType implements GameType {
         }
 
         this.wordManager.getGameDocument().set(update, { merge: true });
+
+        const addXP = (state: State) => {
+            const xpIncrease = state === State.WON ? 40 : 20;
+            currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease);
+        };
+
         openPopup(
             OneVsOneResultPopup,
             {
@@ -30,6 +38,7 @@ export class OneVsOneGameType implements GameType {
                 rounds   : gameState.getRound(),
                 status   : gameState.getState(),
                 word     : gameState.getWord(),
+                addXP,
             });
     }
 

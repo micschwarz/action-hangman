@@ -1,5 +1,7 @@
-import firebase              from 'firebase/app';
-import { StatisticsService } from '../statistics/StatisticsService';
+import firebase                 from 'firebase/app';
+import { StatisticsService }    from '../statistics/StatisticsService';
+import type { ExperienceStore } from '../statistics/Statistics';
+import { Statistics }           from '../statistics/Statistics';
 
 export class User {
     /**
@@ -41,7 +43,7 @@ export class User {
      * Null if user is not logged in.
      * @private
      */
-    private statisticsService: StatisticsService | null = null;
+    private statisticsService: Statistics | null = null;
 
     /**
      * Users current auth state.
@@ -64,7 +66,7 @@ export class User {
                 this.uid               = user.uid;
                 this.photoURL          = user.photoURL;
                 this.displayName       = user.displayName;
-                this.statisticsService = new StatisticsService(user.uid);
+                this.statisticsService = new Statistics(user.uid);
             }
 
             onChange(this.state, user);
@@ -148,10 +150,10 @@ export class User {
     }
 
     /**
-     * Get statistics service for current user.
+     * Get level service for current user.
      * Null if not logged in.
      */
-    getStatisticsService(): StatisticsService | null {
+    getStatisticsService(): Statistics | null {
         return this.statisticsService;
     }
 }

@@ -8,7 +8,6 @@
     import GameManager                      from './Pages/GameManager.svelte';
     import { onDestroy, setContext }        from 'svelte';
     import PopupOutlet                      from './Components/Popups/PopupOutlet.svelte';
-    import LetterKeyboard                   from './Components/Hangman/LetterKeyboard.svelte';
 
     export let config;
 

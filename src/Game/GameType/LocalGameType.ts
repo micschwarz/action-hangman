@@ -2,9 +2,11 @@ import type { WordManager }        from '../WordManager/WordManager';
 import type { GameType }           from './GameType';
 import type { Actions }            from '../Actions/Actions';
 import type { GameState }          from '../GameState';
+import { State }                   from '../GameState';
 import { OnDeviceGameType }        from './OnDeviceGameType';
 import { SinglePlayerWordManager } from '../WordManager/SinglePlayerWordManager';
 import { AllActions }              from '../Actions/AllActions';
+import { currentUser }             from '../../services/user/User';
 
 export class LocalGameType extends OnDeviceGameType {
     getActions(): Actions {
@@ -21,6 +23,7 @@ export class LocalGameType extends OnDeviceGameType {
 
     finish(gameState: GameState) {
         super.finish(gameState);
-        // TODO Statistics
+        const xpIncrease = gameState.getState() === State.WON ? 40 : 20;
+        currentUser.getStatisticsService().getExperienceStore().increment(xpIncrease);
     }
 }

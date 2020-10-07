@@ -14,7 +14,8 @@
 
     let profileName = currentUser.getDisplayName() || currentUser.getEmail();
 
-    let statisticsService = currentUser.getStatisticsService();
+    const statistics = currentUser.getStatisticsService();
+    const xp         = statistics.getExperienceStore();
 
     const update = () => {
         isLoading = true;
@@ -35,20 +36,7 @@
             </div>
             <h3 class="title">{profileName}</h3>
             <div class="statistics">
-                {#await statisticsService.get()}
-                    <Loader small white/>
-                {:then statistics}
-                    {#if statistics.gamesPlayed <= 0}
-                        <span class="no-statistics">Gewonnen: 0 Spiele gespielt</span>
-                    {:else}
-                        Gewonnen:
-                        <span class="games-ratio">{(statistics.gamesWon / statistics.gamesPlayed * 100).toFixed(1)}%
-                        </span>
-                        ({statistics.gamesWon} aus {statistics.gamesPlayed} Spielen)
-                    {/if}
-                {:catch name}
-                    Fehler
-                {/await}
+                Dein Level: <span class="games-ratio">{statistics.getLevelByExperience($xp)}</span>
             </div>
         </div>
     </div>

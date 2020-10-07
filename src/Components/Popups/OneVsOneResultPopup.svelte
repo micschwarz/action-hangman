@@ -13,6 +13,7 @@
     export let word;
     export let status;
     export let game;
+    export let addXP;
 
     let color          = 'var(--color-background)';
     let backgroundIcon = 'clock-ten';
@@ -44,6 +45,8 @@
         if (status === State.LOST) {
             lost = true;
         }
+
+        addXP(status);
 
         color          = lost ? 'var(--red-darken)' : 'var(--green-darken)';
         backgroundIcon = lost ? 'times-circle' : 'check-circle';
